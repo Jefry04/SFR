@@ -1,4 +1,4 @@
-const { model, Schema, models } = require("mongoose");
+const { model, Schema, models } = require('mongoose');
 
 const nameRegex = /[a-zA-Z]+/; // Just letters
 const emailRegex = /^[^@]+@[^@]+.[^@]+$/; // simply email validation
@@ -40,7 +40,7 @@ const userSchema = new Schema(
     },
     isAdmin: {
       required: true,
-      type: Boolean
+      type: Boolean,
     },
   },
   {
@@ -48,6 +48,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
