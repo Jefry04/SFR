@@ -1,0 +1,25 @@
+{
+  "name": "sfr-service",
+  "version": "1.0.0",
+  "description": "sfr backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "dev": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jefferon Vasquez (https://github.com/Jefry04)",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.3",
+    "nodemailer": "^6.7.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
