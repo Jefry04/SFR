@@ -16,6 +16,9 @@ const fieldSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  bookings: {
+    type: [{ type: Schema.Types.ObjectId, ref: "Booking" }],
+  },
 });
 
 const Field = model('Field', fieldSchema);

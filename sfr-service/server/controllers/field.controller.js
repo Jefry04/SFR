@@ -4,7 +4,9 @@ const User = require('../models/user.model');
 module.exports = {
   async list(req, res) {
     try {
-      const fields = await Field.find().populate('userId');
+      const fields = await Field.find()
+        .populate('userId')
+        .populate('bookings', 'bookingDate');
       res.status(200).json({ fields });
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -13,10 +15,12 @@ module.exports = {
 
   async create(req, res) {
     try {
-      //TODO solo permitir si es admin
+
       const userId = req.user;
       const user = await User.findById(userId);
-      if (!user) throw new NotFoundError('Usuario no encontrado');
+
+      if (!user) throw new Error('User not found');
+      if(user.isAdmin === false)throw new Error('unauthorized user');
 
       const field = await Field.create({
         ...req.body,
@@ -35,11 +39,13 @@ module.exports = {
   async show(req, res) {
     try {
       const { fieldId } = req.params;
-
-      const field = await Field.findById(fieldId);
+      const field = await Field.findById(fieldId).populate(
+        'bookings',
+        'bookingDate'
+      );
 
       if (!field) {
-        res.status(403).json({ message: "field does not exist" });
+        res.status(403).json({ message: 'field does not exist' });
         return;
       }
 

@@ -1,4 +1,3 @@
-
 const jwt = require('jsonwebtoken');
 
 exports.userAuth = (req, res, next) => {
