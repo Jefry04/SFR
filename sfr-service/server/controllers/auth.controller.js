@@ -37,7 +37,7 @@ module.exports = {
         expiresIn: 60 * 60 * 24,
       });
 
-      res.status(200).json({ token, message: 'User created' });
+      res.status(200).json({ token, message: 'User created', user });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -62,7 +62,7 @@ module.exports = {
         expiresIn: 60 * 60 * 24,
       });
 
-      res.status(200).json({ token, message: 'User login successfully' });
+      res.status(200).json({ token, message: 'User login successfully', user });
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
