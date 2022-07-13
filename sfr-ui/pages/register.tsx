@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
+import { useRouter } from 'next/router';
 import {
   PasswordInput,
   Group,
@@ -10,8 +14,18 @@ import {
   Checkbox,
 } from '@mantine/core';
 import { FormValues } from '../types/register.type';
+import { RootState } from '../store';
+import { authRegister } from '../store/action-creators/Auth.actionCreator';
 
 const register = () => {
+  const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuth) router.push('/');
+  }, [isAuth]);
+
   const form = useForm<FormValues>({
     initialValues: {
       firstName: '',
@@ -30,14 +44,16 @@ const register = () => {
   });
 
   const handleRegister = async () => {
-    const { data } = await axios.post(
-      'http://localhost:8080/auth/signup',
-      form.values
-    );
-    const { token } = data;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('token', token);
-    }
+    dispatch(authRegister(form.values));
+
+    // const { data } = await axios.post(
+    //   'http://localhost:8080/auth/signup',
+    //   form.values
+    // );
+    // const { token } = data;
+    // if (typeof window !== 'undefined') {
+    //   localStorage.setItem('token', token);
+    // }
   };
 
   return (

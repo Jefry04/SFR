@@ -1,10 +1,23 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
+import { ThunkDispatch } from 'redux-thunk';
+import { useRouter } from 'next/router';
+import { AnyAction } from 'redux';
 import { PasswordInput, Group, Button, Box, TextInput } from '@mantine/core';
 import { IloginForm } from '../types/register.type';
+import { authUser } from '../store/action-creators/Auth.actionCreator';
+import { RootState } from '../store';
 
 const register = () => {
+  const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isAuth) router.push('/');
+  }, [isAuth]);
+
   const form = useForm<IloginForm>({
     initialValues: {
       email: '',
@@ -17,14 +30,7 @@ const register = () => {
   });
 
   const handleRegister = async () => {
-    const { data } = await axios.post(
-      'http://localhost:8080/auth/login',
-      form.values
-    );
-    const { token } = data;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('token', token);
-    }
+    dispatch(authUser(form.values));
   };
 
   return (
