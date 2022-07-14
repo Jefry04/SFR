@@ -9,9 +9,7 @@ const fieldSchema = new Schema({
     required: true,
     type: Number,
   },
-  photos: {
-    type: Array,
-  },
+  image: Object,
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',

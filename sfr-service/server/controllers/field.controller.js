@@ -15,12 +15,11 @@ module.exports = {
 
   async create(req, res) {
     try {
-
       const userId = req.user;
       const user = await User.findById(userId);
 
       if (!user) throw new Error('User not found');
-      if(user.isAdmin === false)throw new Error('unauthorized user');
+      if (user.isAdmin === false) throw new Error('unauthorized user');
 
       const field = await Field.create({
         ...req.body,
