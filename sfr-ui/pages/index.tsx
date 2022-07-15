@@ -1,15 +1,25 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import FieldCards from '../components/FieldCards';
+import { getAllFields } from '../utils/getData';
+import { IallFields, IField } from '../types';
 
-const Home: NextPage = () => {
+const Home = ({ allFields }: IallFields) => {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>lista de canchas</main>
+    <div className="card__container">
+      {allFields &&
+        allFields.fields.map((field: IField) => <FieldCards field={field} />)}
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const allFields = await getAllFields();
+  return {
+    props: {
+      allFields,
+    },
+  };
+}
 
 export default Home;

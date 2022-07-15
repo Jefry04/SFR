@@ -15,10 +15,11 @@ const LayoutContainer = ({ children }: IProps) => {
               display: 'flex',
               alignItems: 'center',
               height: '100%',
-              justifyContent: ' flex-end',
+              justifyContent: 'space-between',
             }}
           >
-            LOGIN
+            <p>SFR</p>
+            <p>LOGIN</p>
           </div>
         </Header>
       }

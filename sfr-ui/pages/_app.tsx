@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Provider, useDispatch } from 'react-redux';
 
-import '../styles/globals.css';
+import '../index.scss';
 import type { AppProps } from 'next/app';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <LayoutContainer>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </LayoutContainer>
     </Provider>
   );

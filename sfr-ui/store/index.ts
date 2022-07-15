@@ -7,9 +7,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createWrapper } from 'next-redux-wrapper';
 import thunk from 'redux-thunk';
 import AuthReducer from './reducers/Auth.reducer';
+import FieldReducer from './reducers/Field.reducer';
 
 const rootReducer = combineReducers({
   AuthReducer,
+  FieldReducer,
 });
 
 const middleware = [thunk];
