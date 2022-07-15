@@ -45,15 +45,6 @@ const register = () => {
 
   const handleRegister = async () => {
     dispatch(authRegister(form.values));
-
-    // const { data } = await axios.post(
-    //   'http://localhost:8080/auth/signup',
-    //   form.values
-    // );
-    // const { token } = data;
-    // if (typeof window !== 'undefined') {
-    //   localStorage.setItem('token', token);
-    // }
   };
 
   return (

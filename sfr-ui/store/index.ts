@@ -8,10 +8,12 @@ import { createWrapper } from 'next-redux-wrapper';
 import thunk from 'redux-thunk';
 import AuthReducer from './reducers/Auth.reducer';
 import FieldReducer from './reducers/Field.reducer';
+import ModalsReducer from './reducers/Modals.reducer';
 
 const rootReducer = combineReducers({
   AuthReducer,
   FieldReducer,
+  ModalsReducer,
 });
 
 const middleware = [thunk];

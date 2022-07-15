@@ -9,7 +9,7 @@ import { IloginForm } from '../types/register.type';
 import { authUser } from '../store/action-creators/Auth.actionCreator';
 import { RootState } from '../store';
 
-const register = () => {
+const Login = () => {
   const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
   const router = useRouter();
@@ -55,4 +55,4 @@ const register = () => {
   );
 };
 
-export default register;
+export default Login;

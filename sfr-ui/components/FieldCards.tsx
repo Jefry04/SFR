@@ -5,7 +5,7 @@ const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
   return (
     <div className="card">
       <header className="card__header">
-        <Image src={field.image.url} height={160} alt="Norway" />
+        <Image src={field?.image?.url} height={160} alt="Cancha" />
       </header>
       <div className="card__body">
         <div className="card__body__info">
