@@ -54,6 +54,7 @@ module.exports = {
     }
   },
 
+
   async destroy(req, res) {
     try {
       const userId = req.user;

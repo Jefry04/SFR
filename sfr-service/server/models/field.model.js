@@ -9,6 +9,22 @@ const fieldSchema = new Schema({
     required: true,
     type: Number,
   },
+  city: {
+    required: true,
+    type: String,
+  },
+  description: {
+    required: true,
+    type: String,
+  },
+  phone: {
+    required: true,
+    type: Number,
+  },
+  address: {
+    required: true,
+    type: String,
+  },
   image: Object,
   userId: {
     type: Schema.Types.ObjectId,

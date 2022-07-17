@@ -11,7 +11,7 @@ const bookingSchema = new Schema({
   },
   bookingDate: {
     required: true,
-    type: String,
+    type: Date,
   },
   payref: {
     type: Number,
