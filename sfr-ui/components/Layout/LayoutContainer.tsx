@@ -2,41 +2,71 @@
 
 import React from 'react';
 import { AppShell, Header } from '@mantine/core';
+import { useSelector, useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { useDispatch } from 'react-redux';
 import { IProps } from './LayoutContainer.type';
-import { showCreateFieldForm } from '../../store/action-creators/Modals.action.Creator';
+import ProfileMenu from './ProfileMenu';
+import PublicModal from '../PublicModal';
+import CreateFieldForm from '../CreateFieldForm';
+import { RootState } from '../../store';
+import {
+  hideCreateFieldForm,
+  hideLoginForm,
+  hideRegisterForm,
+} from '../../store/action-creators/Modals.action.Creator';
+import Login from '../Login';
+import Register from '../Register';
 
 const LayoutContainer = ({ children }: IProps) => {
   const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
-
-  const handleClick = () => {
-    dispatch(showCreateFieldForm());
+  const { showCreateFieldForm, showLoginForm, showRegisterForm } = useSelector(
+    (state: RootState) => state.ModalsReducer
+  );
+  const handleClose = () => {
+    dispatch(hideCreateFieldForm());
   };
+
+  const handleCloseLoginModal = () => {
+    dispatch(hideLoginForm());
+  };
+
+  const handleCloseRegisterModal = () => {
+    dispatch(hideRegisterForm());
+  };
+
   return (
-    <AppShell
-      padding="md"
-      header={
-        <Header height={60} p="xs">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              height: '100%',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>SFR</p>
-            <button type="button" onClick={handleClick}>
-              Create field
-            </button>
-          </div>
-        </Header>
-      }
-    >
-      {children}
-    </AppShell>
+    <>
+      <AppShell
+        padding="md"
+        header={
+          <Header height={60} p="xs">
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}
+            >
+              <p>SFR</p>
+              <ProfileMenu />
+            </div>
+          </Header>
+        }
+      >
+        {children}
+      </AppShell>
+      <PublicModal opened={showCreateFieldForm} onClose={handleClose}>
+        <CreateFieldForm />
+      </PublicModal>
+      <PublicModal opened={showLoginForm} onClose={handleCloseLoginModal}>
+        <Login />
+      </PublicModal>
+      <PublicModal opened={showRegisterForm} onClose={handleCloseRegisterModal}>
+        <Register />
+      </PublicModal>
+    </>
   );
 };
 

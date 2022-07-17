@@ -31,7 +31,6 @@ export const createField = (
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch: Dispatch) => {
     try {
-      console.log('Dispatch: ', fieldData);
       const { data } = await axios.post(`${url}/fields`, fieldData, {
         headers: {
           'Content-Type': 'multipart/form-data',

@@ -11,15 +11,18 @@ const initialState: IinitialState = {
   isAuth: false,
   user: {},
   error: null,
+  isAdmin: false,
 };
 
 function AuthReducer(state: IinitialState = initialState, action: IAction) {
   if (action.type === AUTH_SUCCESS) {
+    const { isAdmin } = action.payload;
     return {
       ...state,
       isAuth: true,
       user: action.payload,
       error: null,
+      isAdmin,
     };
   }
   if (action.type === AUTH_ERROR) {
@@ -28,13 +31,13 @@ function AuthReducer(state: IinitialState = initialState, action: IAction) {
       error: action.payload,
     };
   }
-  // if (action.type === LOGOUT) {
-  //   return {
-  //     ...state,
-  //     isAuth: false,
-  //     user: null,
-  //   };
-  // }
+  if (action.type === LOGOUT) {
+    return {
+      ...state,
+      isAuth: false,
+      user: null,
+    };
+  }
   return state;
 }
 

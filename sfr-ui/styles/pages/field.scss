@@ -1,0 +1,19 @@
+.datePicker {
+    grid-column: 5/10;
+    grid-row: 2/4;
+    padding-bottom: 50px;
+  
+    input {
+      font-size: 20px;
+      text-align: center;
+      background-color: transparent;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      border-bottom: 1px solid black;
+      &:focus {
+        outline: none;
+        border-bottom: 2px solid #f50057;
+      }
+    }
+  }

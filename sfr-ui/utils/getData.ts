@@ -11,9 +11,7 @@ export const getAllFields = async () => {
   }
 };
 
-export const getCharactersDetail = async () => {
-  const { data } = await axios.get(
-    `https://rickandmortyapi.com/api/character/`
-  );
+export const getFieldDetails = async (id: string) => {
+  const { data } = await axios.get(`${url}/fields/${id}`);
   return data;
 };

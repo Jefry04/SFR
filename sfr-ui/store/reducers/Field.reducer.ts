@@ -5,13 +5,17 @@ import {
   FIELD_ERROR,
   CREATE_FIELD_SUCCESS,
 } from '../actions/Field.actions';
-import { IAction } from './Auth.type';
 
 const initialState = {
   fields: [],
   error: null,
   createField: {},
 };
+
+interface IAction {
+  type: string;
+  payload: string | object;
+}
 
 function FieldReducer(state = initialState, action: IAction) {
   if (action.type === FIELD_SUCCESS) {

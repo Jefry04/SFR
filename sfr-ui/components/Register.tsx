@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
 import { useRouter } from 'next/router';
 import {
@@ -16,9 +13,10 @@ import {
 import { FormValues } from '../types/register.type';
 import { RootState } from '../store';
 import { authRegister } from '../store/action-creators/Auth.actionCreator';
+import { useAppDispatch } from '../store/hooks';
 
-const register = () => {
-  const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+const Register = () => {
+  const dispatch = useAppDispatch();
   const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
   const router = useRouter();
 
@@ -94,4 +92,4 @@ const register = () => {
   );
 };
 
-export default register;
+export default Register;

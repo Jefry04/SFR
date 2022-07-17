@@ -8,13 +8,14 @@ import {
   USER_SUCCESS,
 } from '../actions/Auth.actions';
 import { FormValues, IloginForm } from '../../types/register.type';
+import { hideLoginForm, hideRegisterForm } from './Modals.action.Creator';
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
 export const authUser = (
   body: IloginForm
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch) => {
     try {
       const response = await axios.post(`${url}/auth/login`, body);
       const { token } = response.data;
@@ -22,20 +23,23 @@ export const authUser = (
         localStorage.setItem('token', token);
       }
       dispatch({ type: AUTH_SUCCESS, payload: response.data.user });
+      dispatch(hideLoginForm());
     } catch (error) {
       dispatch({ type: AUTH_ERROR, payload: error });
     }
   };
 };
 
-export const authRegister = (body: FormValues) => {
-  return async (dispatch: Dispatch) => {
+export const authRegister = (
+  body: FormValues
+): ThunkAction<void, unknown, unknown, AnyAction> => {
+  return async (dispatch) => {
     try {
       const response = await axios.post(`${url}/auth/signup`, body);
-
       const { token, ...user } = response.data;
       localStorage.setItem('token', token);
       dispatch({ type: AUTH_SUCCESS, payload: user });
+      dispatch(hideRegisterForm());
     } catch (error) {
       dispatch({ type: AUTH_ERROR, payload: error });
     }
@@ -59,10 +63,11 @@ export const getUerData = (token: string) => {
   };
 };
 
-// export const logout = () => {
-//   return async (dispatch) => {
-//     localStorage.removeItem('token');
-//     axios.defaults.headers.common.Authorization = '';
-//     dispatch({ type: LOGOUT });
-//   };
-// };
+export const logout = () => {
+  return async (dispatch: Dispatch) => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+    }
+    dispatch({ type: LOGOUT });
+  };
+};

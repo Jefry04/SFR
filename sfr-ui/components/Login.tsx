@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
-import { ThunkDispatch } from 'redux-thunk';
 import { useRouter } from 'next/router';
-import { AnyAction } from 'redux';
 import { PasswordInput, Group, Button, Box, TextInput } from '@mantine/core';
 import { IloginForm } from '../types/register.type';
 import { authUser } from '../store/action-creators/Auth.actionCreator';
 import { RootState } from '../store';
+import { useAppDispatch } from '../store/hooks';
 
 const Login = () => {
-  const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const dispatch = useAppDispatch();
   const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
   const router = useRouter();
 
@@ -29,13 +28,13 @@ const Login = () => {
     },
   });
 
-  const handleRegister = async () => {
+  const handleLogin = async () => {
     dispatch(authUser(form.values));
   };
 
   return (
     <Box sx={{ maxWidth: 340 }} mx="auto">
-      <form onSubmit={form.onSubmit(handleRegister)}>
+      <form onSubmit={form.onSubmit(handleLogin)}>
         <TextInput
           required
           label="Email"
