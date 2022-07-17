@@ -26,7 +26,7 @@ module.exports = {
         userId,
       });
 
-      res.status(201).json({
+      res.status(200).json({
         message: 'Cancha creada exitosamente',
         field: field,
       });
