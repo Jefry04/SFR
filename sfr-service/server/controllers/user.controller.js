@@ -57,7 +57,9 @@ module.exports = {
         throw new Error('User not found');
       }
 
-      const bookings = await Booking.find({ userId: user.id });
+      const bookings = await Booking.find({ userId: user.id }).populate(
+        'fieldId'
+      );
       if (!bookings) {
         res.status(403).json({ message: 'user does not have booking yet' });
         return;
