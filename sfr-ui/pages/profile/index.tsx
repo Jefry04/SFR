@@ -1,37 +1,20 @@
 /* eslint-disable no-underscore-dangle */
 import { Tabs } from '@mantine/core';
+import { getDate } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FieldCards from '../../components/FieldCards';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import { RootState } from '../../store';
-import { showCreateFieldForm } from '../../store/action-creators/Modals.action.Creator';
-import { useAppDispatch } from '../../store/hooks';
 import { IField } from '../../types';
-import { getFieldByUser } from '../../utils/getData';
-
-interface IProps {
-  isAuth: boolean;
-  user: IUser;
-  isAdmin: boolean;
-}
-interface IUser {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  isAdmin: boolean;
-  bookings: any[];
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-}
+import { IProps, IBooking } from '../../types/profile.type';
+import { getBookingByUser, getFieldByUser } from '../../utils/getData';
 
 const index = () => {
   const [token, setToken] = useState<string | null>('');
   const [fields, setFields] = useState([]);
-  const { isAuth, user, isAdmin }: IProps = useSelector(
+  const [bookings, setBookings] = useState([]);
+  const { isAdmin }: IProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
   useEffect(() => {
@@ -46,7 +29,7 @@ const index = () => {
       getFieldByUser(token).then((items) => setFields(items));
     }
     if (tabKey === 'Reservas') {
-      console.log('trar reservas');
+      getBookingByUser(token).then((items) => setBookings(items));
     }
   };
   return (
@@ -66,7 +49,13 @@ const index = () => {
         )}
         {!isAdmin && (
           <Tabs.Tab label="Reservas" tabKey="Reservas">
-            <p> Reservas del cliente</p>
+            {bookings &&
+              bookings.map((booking: IBooking) => (
+                <div key={booking._id}>
+                  <p> {booking.fieldId.fieldName}</p>
+                  <p>FECHA: {getDate(booking.bookingDate)}</p>
+                </div>
+              ))}
           </Tabs.Tab>
         )}
       </Tabs>

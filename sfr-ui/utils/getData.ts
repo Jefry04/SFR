@@ -24,3 +24,12 @@ export const getFieldByUser = async (token: string | null) => {
   });
   return data;
 };
+
+export const getBookingByUser = async (token: string | null) => {
+  const { data } = await axios.get(`${url}/user/profile/bookings`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+  return data;
+};
