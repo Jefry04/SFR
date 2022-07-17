@@ -1,5 +1,6 @@
 import { Divider, Menu } from '@mantine/core';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction } from 'redux';
@@ -43,6 +44,7 @@ const ProfileMenu = () => {
     (state: RootState) => state.AuthReducer
   );
   const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const router = useRouter();
 
   const avatar = (
     <div className="header__avatar">
@@ -60,6 +62,11 @@ const ProfileMenu = () => {
       </figure>
     </div>
   );
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/');
+  };
   return (
     <div className="header__user">
       <Menu control={avatar}>
@@ -67,16 +74,16 @@ const ProfileMenu = () => {
         <Link href="/" className="header__link">
           <Menu.Item icon={<Home size={14} />}>Home</Menu.Item>
         </Link>
-        {isAdmin && (
-          // <Link href="/profile" className="header__link">
-          //   <Menu.Item icon={<User size={14} />}>Ir a perfil</Menu.Item>
-          // </Link>
-          <Menu.Item
-            icon={<SoccerField size={14} />}
-            onClick={() => dispatch(showCreateFieldForm())}
-          >
-            Crear Cancha
-          </Menu.Item>
+        {isAuth && (
+          <Link href="/profile" className="header__link">
+            <Menu.Item icon={<User size={14} />}>Ir a perfil</Menu.Item>
+          </Link>
+          // <Menu.Item
+          //   icon={<SoccerField size={14} />}
+          //   onClick={() => dispatch(showCreateFieldForm())}
+          // >
+          //   Crear Cancha
+          // </Menu.Item>
         )}
         <Divider />
 
@@ -97,10 +104,7 @@ const ProfileMenu = () => {
           </>
         )}
         {isAuth && (
-          <Menu.Item
-            icon={<Logout size={14} />}
-            onClick={() => dispatch(logout())}
-          >
+          <Menu.Item icon={<Logout size={14} />} onClick={handleLogout}>
             Cerrar Sesión
           </Menu.Item>
         )}

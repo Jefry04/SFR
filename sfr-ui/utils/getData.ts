@@ -15,3 +15,12 @@ export const getFieldDetails = async (id: string) => {
   const { data } = await axios.get(`${url}/fields/${id}`);
   return data;
 };
+
+export const getFieldByUser = async (token: string | null) => {
+  const { data } = await axios.get(`${url}/user/profile/fields`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+  return data;
+};
