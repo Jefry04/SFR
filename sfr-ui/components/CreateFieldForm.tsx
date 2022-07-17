@@ -4,17 +4,15 @@ import { useForm } from '@mantine/hooks';
 import React, { useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { Group, Button, Box, TextInput } from '@mantine/core';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
-import { useDispatch } from 'react-redux';
 import { createField } from '../store/action-creators/Field.actonCreator';
+import { useAppDispatch } from '../store/hooks';
 
 const CreateFieldForm = () => {
   const [images, setImages] = useState([]);
   const [file, setFile] = useState(null);
 
   const maxNumber = 69;
-  const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const dispatch = useAppDispatch();
 
   // TODO SACAR Interfa de tipado
   interface IValuesCreateField {

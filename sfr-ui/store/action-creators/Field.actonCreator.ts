@@ -6,6 +6,7 @@ import {
   FIELD_ERROR,
   CREATE_FIELD_SUCCESS,
 } from '../actions/Field.actions';
+import { hideCreateFieldForm } from './Modals.action.Creator';
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -29,7 +30,7 @@ export const createField = (
   fieldData: any,
   token: string | null | undefined
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch) => {
     try {
       const { data } = await axios.post(`${url}/fields`, fieldData, {
         headers: {
@@ -38,6 +39,7 @@ export const createField = (
         },
       });
       dispatch({ type: CREATE_FIELD_SUCCESS, payload: data.field });
+      dispatch(hideCreateFieldForm());
     } catch (error) {
       dispatch({ type: FIELD_ERROR, payload: error });
     }

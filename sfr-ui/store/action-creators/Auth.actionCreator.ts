@@ -36,9 +36,9 @@ export const authRegister = (
   return async (dispatch) => {
     try {
       const response = await axios.post(`${url}/auth/signup`, body);
-      const { token, ...user } = response.data;
+      const { token } = response.data;
       localStorage.setItem('token', token);
-      dispatch({ type: AUTH_SUCCESS, payload: user });
+      dispatch({ type: AUTH_SUCCESS, payload: response.data.user });
       dispatch(hideRegisterForm());
     } catch (error) {
       dispatch({ type: AUTH_ERROR, payload: error });

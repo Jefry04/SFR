@@ -45,6 +45,9 @@ const index = () => {
     if (tabKey === 'Canchas') {
       getFieldByUser(token).then((items) => setFields(items));
     }
+    if (tabKey === 'Reservas') {
+      console.log('trar reservas');
+    }
   };
   return (
     <div className="user-profile">

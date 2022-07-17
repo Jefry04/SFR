@@ -97,7 +97,6 @@ const FieldDetail: FC<{ field: IField }> = ({ field }) => {
 
 export async function getServerSideProps({ query }: any) {
   const field = await getFieldDetails(query.id);
-  console.log('entre aca');
   return {
     props: {
       field,
