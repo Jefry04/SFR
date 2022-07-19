@@ -5,6 +5,7 @@ const { userAuth } = require('../middlewares/userAuth.middleware');
 
 router.route('/').post(userAuth, formData, fieldController.create);
 router.route('/').get(fieldController.list);
+router.route('/results').get(fieldController.filterField);
 router.route('/:fieldId').get(fieldController.show);
 router.route('/:fieldId').delete(userAuth, fieldController.destroy);
 

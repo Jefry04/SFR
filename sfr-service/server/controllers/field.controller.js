@@ -54,6 +54,20 @@ module.exports = {
     }
   },
 
+  async filterField(req, res) {
+    try {
+      const { city, capacity } = req.query;
+
+      const query = {};
+      if (city) query.city = { $eq: city };
+      if (capacity) query.capacity = { $gte: capacity };
+
+      const fields = await Field.find(query);
+      res.status(200).json(fields);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  },
 
   async destroy(req, res) {
     try {
