@@ -49,7 +49,7 @@ const ProfileMenu = () => {
   const avatar = (
     <div className="header__avatar">
       <figure className="header__avatar__fig">
-        <UserCircle size={40} strokeWidth={1} color="#065fd4" />
+        <UserCircle size={40} strokeWidth={1} color="#00473e" />
         {/* TODO Cargar imagen por defecto */}
         {/* {isAuth && (
           <img

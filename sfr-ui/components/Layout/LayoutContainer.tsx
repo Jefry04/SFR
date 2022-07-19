@@ -42,6 +42,7 @@ const LayoutContainer = ({ children }: IProps) => {
         header={
           <Header height={60} p="xs">
             <div
+              className="header__tittle"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -50,6 +51,7 @@ const LayoutContainer = ({ children }: IProps) => {
               }}
             >
               <p>SFR</p>
+              <h3>BIENVENIDOS A LA MEJOR PAGINA DE RESERVAS DE CANCHA</h3>
               <ProfileMenu />
             </div>
           </Header>

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Tabs } from '@mantine/core';
-import { getDate } from 'date-fns';
+import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FieldCards from '../../components/FieldCards';
@@ -53,7 +53,13 @@ const index = () => {
               bookings.map((booking: IBooking) => (
                 <div key={booking._id}>
                   <p> {booking.fieldId.fieldName}</p>
-                  <p>FECHA: {getDate(booking.bookingDate)}</p>
+                  <p>
+                    FECHA:{' '}
+                    {format(
+                      new Date(booking.bookingDate).getTime(),
+                      'MMMM d, yyyy h:mm aa'
+                    )}
+                  </p>
                 </div>
               ))}
           </Tabs.Tab>

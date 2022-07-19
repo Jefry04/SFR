@@ -7,6 +7,7 @@
   .card {
     width: 70%;
     height: 200px;
+    background-color: var(--card-background);
     display: flex;
     flex-direction: row;
     padding-left: 3%;
@@ -33,12 +34,14 @@
       margin-top: 8px;
       h3 {
         margin: 0px 0px 10px 1px;
+        color: var(--card-title);
       }
       span {
         display: flex;
         align-items: center;
         margin-left: 1px;
         padding-bottom: 10px;
+        color: var(--card-paragraph);
         h4 {
           margin: 0 5px 0 0;
         }

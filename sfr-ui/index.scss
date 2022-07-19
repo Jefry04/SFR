@@ -3,13 +3,13 @@
 @import './styles/abstract/mixins';
 
 /* base */
-@import './styles/base//reset';
+@import './styles/base/reset';
 
 /* components */
 @import './styles/components/cards.scss';
 @import './styles//components/menu.scss';
 @import './styles/components/profile/profileHeader.scss';
-
+@import './styles/swiper/swiper.scss';
 
 /* page */
 @import './styles/pages/field.scss'
