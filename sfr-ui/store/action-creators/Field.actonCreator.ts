@@ -5,6 +5,8 @@ import {
   FIELD_SUCCESS,
   FIELD_ERROR,
   CREATE_FIELD_SUCCESS,
+  FILTER_FIELD_ERROR,
+  FILTER_FIELD_SUCCESS,
 } from '../actions/Field.actions';
 import { hideCreateFieldForm } from './Modals.action.Creator';
 
@@ -42,6 +44,26 @@ export const createField = (
       dispatch(hideCreateFieldForm());
     } catch (error) {
       dispatch({ type: FIELD_ERROR, payload: error });
+    }
+  };
+};
+
+export const getFilterFields = (
+  city: string,
+  capacity: string
+): ThunkAction<void, unknown, unknown, AnyAction> => {
+  return async (dispatch) => {
+    try {
+      const paramsObject = {
+        city,
+        capacity,
+      };
+      const { data } = await axios.get(`${url}/fields/results`, {
+        params: paramsObject,
+      });
+      dispatch({ type: FILTER_FIELD_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: FILTER_FIELD_ERROR, payload: error });
     }
   };
 };

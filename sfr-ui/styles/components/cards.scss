@@ -14,6 +14,7 @@
     margin-bottom: 4%;
     border: solid grey 1px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    cursor: pointer;
     .card__header {
       width: 40%;
       margin: 6px 0 6px 0;
@@ -30,26 +31,29 @@
     }
 
     .card__body__info {
+      display: flex;
       width: 80%;
       margin-top: 8px;
       h3 {
         margin: 0px 0px 10px 1px;
         color: var(--card-title);
       }
-      span {
-        display: flex;
-        align-items: center;
-        margin-left: 1px;
-        padding-bottom: 10px;
-        color: var(--card-paragraph);
         h4 {
-          margin: 0 5px 0 0;
+          margin: 0 5px 8px 0;
+          color: var(--card-subtitle);
         }
-        p {
-          margin: 0;
-        }
+    }
+    .card__body__info_title {
+      width: 25%;
+    }
+    .card__body__info_data {
+      width: 50%;
+      p {
+        margin: 0 0 8px 0;
+        color: var(--card-paragraph)
       }
     }
+
     .mantine-1kr6i1s {
       padding: 0;
       width: 20%;
@@ -58,32 +62,26 @@
 }
 
 .card__button {
-  height: 25%;
+  height: 36px;
 
+  font-weight: 600;
   margin: auto;
   margin-right: 14px;
-  background-color: #8ce8ae;
-  border-radius: 100px;
-  box-shadow: rgb(44 187 99 / 20%) 0 -25px 18px -14px inset,
-    rgb(44 187 99 / 15%) 0 1px 2px, rgb(44 187 99 / 15%) 0 2px 4px,
-    rgb(44 187 99 / 15%) 0 4px 8px, rgb(44 187 99 / 15%) 0 8px 16px,
-    rgb(44 187 99 / 15%) 0 16px 32px;
-  color: rgb(29, 115, 29);
-  cursor: pointer;
+  padding: 0 14px;
+  background-color: var(--button-background);
+  border-radius: 16px;
+  color: var(--button-text);
   text-align: center;
   text-decoration: none;
   transition: all 250ms;
   border: 0;
-  font-size: 16px;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  cursor: pointer;
 }
 
 .card__button:hover {
-  box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
-    rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px,
-    rgba(44, 187, 99, 0.25) 0 4px 8px, rgba(44, 187, 99, 0.25) 0 8px 16px,
-    rgba(44, 187, 99, 0.25) 0 16px 32px;
+  box-shadow: var(--button-text);
   transform: scale(1.05) rotate(-1deg);
 }

@@ -1,22 +1,43 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import FieldCards from '../components/FieldCards';
 import { getAllFields } from '../utils/getData';
 import { IallFields, IField } from '../types';
 import LandingSwiper from '../components/Layout/LandingSwiper';
+import Filters from '../components/Filters';
+import { RootState } from '../store';
 
 const Home = ({ allFields }: IallFields) => {
+  const { filteredFields }: any = useSelector(
+    (state: RootState) => state.FieldReducer
+  );
   return (
     <>
-      <div className="wrapper">
-        <LandingSwiper />
+      <div className="filters-wrapper">
+        <Filters />
       </div>
-      <div className="card__container">
-        {allFields &&
-          allFields.fields.map((field: IField) => (
+      {filteredFields.length > 0 && (
+        <div className="card__container">
+          {filteredFields.map((field: IField) => (
             <FieldCards field={field} key={field._id} />
           ))}
-      </div>
+        </div>
+      )}
+      {filteredFields.length === 0 && (
+        <>
+          <div className="wrapper">
+            <LandingSwiper />
+          </div>
+          <div className="card__container">
+            {allFields &&
+              allFields.fields.map((field: IField) => (
+                <FieldCards field={field} key={field._id} />
+              ))}
+          </div>
+        </>
+      )}
     </>
   );
 };

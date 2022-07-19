@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Card, Image, Text, Button, Group } from '@mantine/core';
+import { Image } from '@mantine/core';
 import Link from 'next/link';
 import { IField } from '../types';
 
@@ -12,22 +12,24 @@ const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
         </header>
         <div className="card__body">
           <div className="card__body__info">
-            <h3>NOMBRE: {field.fieldName}</h3>
-            <span>
+            <div className="card__body__info_title">
+              <h3>NOMBRE: </h3>
+
               <h4>Ciudad:</h4>
-              <p>{field.city}</p>
-            </span>
-            <span>
+
               <h4>Direccion:</h4>
-              <p>{field.address}</p>
-            </span>
-            <span>
+
               <h4>Telefono: </h4>
+            </div>
+            <div className="card__body__info_data">
+              <h3>{field.fieldName}</h3>
+              <p>{field.city}</p>
+              <p>{field.address}</p>
               <p> {field.phone}</p>
-            </span>
+            </div>
           </div>
           <button type="button" className="card__button">
-            Reserva
+            Ver mas
           </button>
         </div>
       </div>

@@ -1,0 +1,49 @@
+.filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  .mantine-1m3pqry {
+    margin-right: 10px;
+  }
+  .mantine-Select-label {
+    color: var(--card-title);
+  }
+  .mantine-1nymnbu {
+    color: var(--button-text);
+  }
+  .filter--button {
+    margin-top: 23px;
+    border: 1px solid transparent;
+    background-color: var(--button-background);
+    color: var(--button-text);
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .button__disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    margin-top: 23px;
+    border: 1px solid transparent;
+    background-color: var(--button-background);
+    color: var(--button-text);
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+}
