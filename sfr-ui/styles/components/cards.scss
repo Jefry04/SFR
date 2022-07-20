@@ -38,10 +38,10 @@
         margin: 0px 0px 10px 1px;
         color: var(--card-title);
       }
-        h4 {
-          margin: 0 5px 8px 0;
-          color: var(--card-subtitle);
-        }
+      h4 {
+        margin: 0 5px 8px 0;
+        color: var(--card-subtitle);
+      }
     }
     .card__body__info_title {
       width: 25%;
@@ -50,7 +50,7 @@
       width: 50%;
       p {
         margin: 0 0 8px 0;
-        color: var(--card-paragraph)
+        color: var(--card-paragraph);
       }
     }
 
@@ -85,3 +85,5 @@
   box-shadow: var(--button-text);
   transform: scale(1.05) rotate(-1deg);
 }
+
+

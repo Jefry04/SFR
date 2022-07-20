@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/jsx-boolean-value */
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Autoplay } from 'swiper';
 import 'swiper/css/bundle';
 import landing from '../../public/assets/landing1.png';
 
