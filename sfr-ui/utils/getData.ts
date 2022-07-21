@@ -33,3 +33,15 @@ export const getBookingByUser = async (token: string | null) => {
   });
   return data;
 };
+
+export const deleteBooking = async (
+  token: string | null,
+  bookingId: string
+) => {
+  const response = await axios.delete(`${url}/booking/${bookingId}`, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  });
+  return response;
+};

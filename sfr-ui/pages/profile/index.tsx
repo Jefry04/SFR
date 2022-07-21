@@ -8,7 +8,11 @@ import ProfileHeader from '../../components/profile/ProfileHeader';
 import { RootState } from '../../store';
 import { IField } from '../../types';
 import { IProps, IBooking } from '../../types/profile.type';
-import { getBookingByUser, getFieldByUser } from '../../utils/getData';
+import {
+  deleteBooking,
+  getBookingByUser,
+  getFieldByUser,
+} from '../../utils/getData';
 
 const index = () => {
   const [token, setToken] = useState<string | null>('');
@@ -23,6 +27,13 @@ const index = () => {
       setToken(localToken);
     }
   }, []);
+
+  const hanldeBookingCancel = (bookingId: string) => {
+    deleteBooking(token, bookingId).then((response) => {
+      if (response.status === 200)
+        getBookingByUser(token).then((items) => setBookings(items));
+    });
+  };
 
   const handleTabChange = (tabIndex: number, tabKey: string) => {
     if (tabKey === 'Canchas') {
@@ -61,6 +72,13 @@ const index = () => {
                       'MMMM d, yyyy h:mm aa'
                     )}
                   </p>
+                  <button
+                    type="button"
+                    className="card__button"
+                    onClick={() => hanldeBookingCancel(booking._id)}
+                  >
+                    CANCELAR
+                  </button>
                 </div>
               ))}
           </Tabs.Tab>
