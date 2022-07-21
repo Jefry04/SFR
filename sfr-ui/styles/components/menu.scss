@@ -1,6 +1,9 @@
 .header__tittle{
   color:var(--text-headline);
 }
+.header__logo{
+  cursor: pointer;
+}
 .header__avatar {
     width: 45px;
     height: 45px;

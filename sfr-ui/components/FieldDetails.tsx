@@ -115,6 +115,7 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
             dateFormat="MMMM d, yyyy h:mm aa"
             onChange={(date: Date) => setSDateSelected(date)}
           />
+          {!isAuth && <p>Debes iniciar sesion para reservar</p>}
           <button type="button" onClick={handleClick} className="card__button">
             {isAuth ? 'RESERVAR' : 'LOGIN'}
           </button>

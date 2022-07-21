@@ -50,15 +50,15 @@
   .fieldDetails__info {
     display: flex;
     margin: 10px 0 5px 10px;
-    
+
     .fieldDetails__info__description {
       display: flex;
       width: 80%;
       margin-top: 8px;
-        h4 {
-          margin: 0 5px 8px 0;
-          color: var(--card-subtitle);
-        }
+      h4 {
+        margin: 0 5px 8px 0;
+        color: var(--card-subtitle);
+      }
       .fieldDetails__body__info_title {
         width: 25%;
       }
@@ -66,17 +66,21 @@
         width: 50%;
         p {
           margin: 0 0 8px 0;
-          color: var(--card-paragraph)
+          color: var(--card-paragraph);
         }
       }
     }
     .fieldDetails__calendar {
       margin-top: 8px;
-      h4{
+      h4 {
         margin: 0 0 10px 0;
-        color:#d8779a
+        color: var(--text-highlight);
       }
-      button{
+      p {
+        margin-top: 20px;
+        color: var(--text-highlight);
+      }
+      button {
         margin-top: 10px;
       }
     }

@@ -5,6 +5,8 @@ import { AppShell, Header } from '@mantine/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import Image from 'next/image';
+import Link from 'next/link';
 import { IProps } from './LayoutContainer.type';
 import ProfileMenu from './ProfileMenu';
 import PublicModal from '../PublicModal';
@@ -17,6 +19,7 @@ import {
 } from '../../store/action-creators/Modals.action.Creator';
 import Login from '../Login';
 import Register from '../Register';
+import logo from '../../public/assets/LOGO.png';
 
 const LayoutContainer = ({ children }: IProps) => {
   const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
@@ -50,7 +53,15 @@ const LayoutContainer = ({ children }: IProps) => {
                 justifyContent: 'space-between',
               }}
             >
-              <p>SFR</p>
+              {/* <img src={logo} alt="logo" /> */}
+              <Link href="/">
+                <Image
+                  width={150}
+                  height={60}
+                  src={logo}
+                  className="header__logo"
+                />
+              </Link>
               <h3>BIENVENIDOS A LA MEJOR PAGINA DE RESERVAS DE CANCHA</h3>
               <ProfileMenu />
             </div>

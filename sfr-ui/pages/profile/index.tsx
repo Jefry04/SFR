@@ -32,6 +32,7 @@ const index = () => {
       getBookingByUser(token).then((items) => setBookings(items));
     }
   };
+
   return (
     <div className="user-profile">
       <ProfileHeader />
@@ -51,8 +52,8 @@ const index = () => {
           <Tabs.Tab label="Reservas" tabKey="Reservas">
             {bookings &&
               bookings.map((booking: IBooking) => (
-                <div key={booking._id}>
-                  <p> {booking.fieldId.fieldName}</p>
+                <div key={booking._id} className="user__profile__bookings">
+                  <h3> {booking.fieldId.fieldName}</h3>
                   <p>
                     FECHA:{' '}
                     {format(
