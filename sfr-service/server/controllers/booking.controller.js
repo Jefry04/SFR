@@ -5,7 +5,6 @@ const User = require('../models/user.model');
 module.exports = {
   async list(req, res) {
     try {
-      //TODO eliminar password y dastos innecesario del populate
       const booking = await Booking.find()
         .populate('userId')
         .populate('fieldId');
@@ -19,16 +18,6 @@ module.exports = {
     try {
       const userId = req.user;
       const { fieldId } = req.params;
-      //TODO verificar si existe una reserva para esa fecha
-      //customId, tocaria crearla en el modelo de booking
-      //   const customId = `${bookingSiteId}${userId}${date[0]}${date[1]}`;
-      //   const bookingSearch = await Booking.findOne({
-      //     customId: customId,
-      //   });
-
-      //   if (bookingSearch) {
-      //     console.log("entro al if de bookingg seacrh");
-      //     throw new Error("Booking already exist");}
       const user = await User.findById(userId);
       const field = await Field.findById(fieldId);
       if (!user) {
@@ -68,6 +57,54 @@ module.exports = {
 
     res.status(200).json({ boookingsByField });
     try {
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+
+  async getBookingById(req, res) {
+    const { bookingId } = req.params;
+    boookingById = await Booking.findById(bookingId);
+
+    res.status(200).json({ boookingById });
+    try {
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+
+  async destroy(req, res) {
+    try {
+      const { bookingId } = req.params;
+      const userId = req.user;
+
+      const booking = await Booking.findById(bookingId);
+
+      if (!booking) throw new Error('Booking not found.');
+
+      if (booking.userId.toString() !== userId)
+        throw new Error('Acción denegada.');
+      const bookingFieldId = booking.fieldId.toString();
+      const bookingUserId = booking.userId.toString();
+
+      const field = await Field.findById(bookingFieldId);
+      const user = await User.findById(bookingUserId);
+
+      await booking.deleteOne({ _id: bookingId });
+
+      user.bookings = user.bookings.filter(
+        (item) => item.toString() !== bookingId
+      );
+      field.bookings = field.bookings.filter(
+        (item) => item.toString() !== bookingId
+      );
+      await user.save({ validateBeforeSave: false });
+      await field.save({ validateBeforeSave: false });
+
+      res.status(200).json({
+        message: 'Booking deleted',
+        booking,
+      });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

@@ -70,6 +70,7 @@ module.exports = {
   },
 
   async destroy(req, res) {
+    // TODO eliminar reserva asociada  a esta reserva
     try {
       const userId = req.user;
       const { fieldId } = req.params;
