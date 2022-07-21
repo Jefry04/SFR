@@ -53,7 +53,11 @@ const ProfileHeader = () => {
           handleClick={() => dispatch(showChangePasswordForm())}
         /> */}
           {isAdmin && (
-            <button type="button" onClick={handleCreateField}>
+            <button
+              type="button"
+              onClick={handleCreateField}
+              className="card__button"
+            >
               Crear cancha
             </button>
           )}

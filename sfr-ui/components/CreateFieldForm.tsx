@@ -2,6 +2,7 @@
 /* eslint-disable react/button-has-type */
 import { useForm } from '@mantine/hooks';
 import React, { useState } from 'react';
+import { Eraser, Upload } from 'tabler-icons-react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { Group, Button, Box, TextInput } from '@mantine/core';
 import { createField } from '../store/action-creators/Field.actonCreator';
@@ -95,21 +96,98 @@ const CreateFieldForm = () => {
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            <button
+            <Button
+              leftIcon={<Upload />}
+              size="xs"
+              compact
+              styles={(theme) => ({
+                root: {
+                  color: '#00473e',
+                  backgroundColor: '#faae2b',
+                  border: 0,
+                  height: 30,
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  '&:hover': {
+                    backgroundColor: theme.fn.darken('#faae2b', 0.05),
+                  },
+                },
+                leftIcon: {
+                  marginRight: 8,
+                },
+              })}
+              // variant="white"
+              // color="yellow"
               style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
               {...dragProps}
             >
-              Click or Drop here
-            </button>
-            &nbsp;
-            <button onClick={onImageRemoveAll}>Remove all images</button>
+              Subir fotos
+            </Button>
+            <Button
+              leftIcon={<Eraser />}
+              onClick={onImageRemoveAll}
+              size="xs"
+              compact
+              styles={(theme) => ({
+                root: {
+                  color: '#00473e',
+                  backgroundColor: '#faae2b',
+                  border: 0,
+                  height: 30,
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  '&:hover': {
+                    backgroundColor: theme.fn.darken('#faae2b', 0.05),
+                  },
+                },
+                leftIcon: {
+                  marginRight: 8,
+                },
+              })}
+            >
+              Borrar imagenes
+            </Button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image.dataURL} alt="" width="100" />
                 <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                  <Button
+                    style={{ marginRight: 10 }}
+                    size="xs"
+                    compact
+                    styles={(theme) => ({
+                      root: {
+                        color: '#00473e',
+                        backgroundColor: '#faae2b',
+                        border: 0,
+                        '&:hover': {
+                          backgroundColor: theme.fn.darken('#faae2b', 0.05),
+                        },
+                      },
+                    })}
+                    onClick={() => onImageUpdate(index)}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    style={{ marginRight: 10 }}
+                    size="xs"
+                    compact
+                    styles={(theme) => ({
+                      root: {
+                        color: '#00473e',
+                        backgroundColor: '#faae2b',
+                        border: 0,
+                        '&:hover': {
+                          backgroundColor: theme.fn.darken('#faae2b', 0.05),
+                        },
+                      },
+                    })}
+                    onClick={() => onImageRemove(index)}
+                  >
+                    Remove
+                  </Button>
                 </div>
               </div>
             ))}
@@ -155,7 +233,28 @@ const CreateFieldForm = () => {
             {...form.getInputProps('phone')}
           />
           <Group position="right" mt="md">
-            <Button type="submit">Crear cancha</Button>
+            <Button
+              type="submit"
+              compact
+              styles={(theme) => ({
+                root: {
+                  color: '#00473e',
+                  backgroundColor: '#faae2b',
+                  border: 0,
+                  height: 30,
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  '&:hover': {
+                    backgroundColor: theme.fn.darken('#00acee', 0.05),
+                  },
+                },
+                leftIcon: {
+                  marginRight: 8,
+                },
+              })}
+            >
+              Crear cancha
+            </Button>
           </Group>
         </form>
       </Box>

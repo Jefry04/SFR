@@ -70,13 +70,25 @@ const LayoutContainer = ({ children }: IProps) => {
       >
         {children}
       </AppShell>
-      <PublicModal opened={showCreateFieldForm} onClose={handleClose}>
+      <PublicModal
+        opened={showCreateFieldForm}
+        onClose={handleClose}
+        title="Crear cancha"
+      >
         <CreateFieldForm />
       </PublicModal>
-      <PublicModal opened={showLoginForm} onClose={handleCloseLoginModal}>
+      <PublicModal
+        opened={showLoginForm}
+        onClose={handleCloseLoginModal}
+        title="Login"
+      >
         <Login />
       </PublicModal>
-      <PublicModal opened={showRegisterForm} onClose={handleCloseRegisterModal}>
+      <PublicModal
+        opened={showRegisterForm}
+        onClose={handleCloseRegisterModal}
+        title="Registro de usuario"
+      >
         <Register />
       </PublicModal>
     </>
