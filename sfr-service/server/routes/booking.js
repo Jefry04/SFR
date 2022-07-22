@@ -6,7 +6,7 @@ router.route('/:fieldId').post(userAuth, bookingController.create);
 router.route('/:fieldId').get(bookingController.filter);
 router.route('/user/:bookingId').get(userAuth, bookingController.getBookingById);
 
-router.route('/prueba/:bookingId').delete(userAuth, bookingController.destroy);
+router.route('/:bookingId').delete(userAuth, bookingController.destroy);
 
 router.route('/').get( bookingController.list);
 

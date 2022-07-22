@@ -1,5 +1,9 @@
+const uniqBy = require('lodash.uniqby');
+const cloudinary = require('cloudinary').v2;
+
 const Field = require('../models/field.model');
 const User = require('../models/user.model');
+const Booking = require('../models/booking.model');
 
 module.exports = {
   async list(req, res) {
@@ -70,7 +74,6 @@ module.exports = {
   },
 
   async destroy(req, res) {
-    // TODO eliminar reserva asociada  a esta reserva
     try {
       const userId = req.user;
       const { fieldId } = req.params;
@@ -87,8 +90,48 @@ module.exports = {
         return;
       }
 
-      await field.deleteOne({ _id: fieldId });
-      res.status(200).json(list);
+      if (field.image?.publicId) {
+        await cloudinary.uploader.destroy(field.image.publicId);
+      }
+      // get booking asociate to the field
+      const booking = await Promise.all(
+        field.bookings.map(async (item) => {
+          return await Booking.findById(item._id);
+        })
+      );
+      //delete booking asociate with the field
+      await Promise.all(
+        booking.map(async (item) => {
+          return await Booking.deleteOne({ _id: item._id });
+        })
+      );
+
+      await Field.deleteOne({ _id: fieldId });
+
+      // usuarios asociados al booking
+      // const user = await Promise.all(
+      //   booking.map(async (item) => {
+      //     return await User.findById(item.userId.toString());
+      //   })
+      // );
+
+      // let uniqueUser = uniqBy(user, 'email');
+
+      // uniqueUser.booking = uniqueUser.bookings.filter(
+      //   (item) => item.toString() !== bookingId
+      // );
+      // res = uniqueUser.bookings.filter(
+      //   (item) => !uniqueUser.bookings.includes(item._id.toString())
+      // );
+      // await user.save({ validateBeforeSave: false });
+
+      // console.log('booking de la cancha', booking);
+      // console.log('Usuarios unicos', uniqueUser);
+
+      res.status(200).json({
+        message: 'Field Deleted',
+        field,
+      });
     } catch (error) {
       res.status(400).json(error);
     }
