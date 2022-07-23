@@ -14,7 +14,7 @@
     margin-bottom: 4%;
     border: solid grey 1px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    cursor: pointer;
+
     .card__header {
       width: 40%;
       margin: 6px 0 6px 0;
@@ -28,6 +28,7 @@
       display: flex;
       width: 60%;
       margin: 6px 0 6px 0;
+      cursor: pointer;
     }
 
     .card__body__info {

@@ -1,5 +1,4 @@
-import { Button, Select } from '@mantine/core';
-import axios from 'axios';
+import { Select } from '@mantine/core';
 import React, { useState } from 'react';
 import { getFilterFields } from '../store/action-creators/Field.actonCreator';
 import { useAppDispatch } from '../store/hooks';

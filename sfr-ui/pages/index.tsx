@@ -21,7 +21,7 @@ const Home = ({ allFields }: IallFields) => {
       {filteredFields.length > 0 && (
         <div className="card__container">
           {filteredFields.map((field: IField) => (
-            <FieldCards field={field} key={field._id} />
+            <FieldCards field={field} key={field._id} bottonText="ver mas" />
           ))}
         </div>
       )}
@@ -33,7 +33,11 @@ const Home = ({ allFields }: IallFields) => {
           <div className="card__container">
             {allFields &&
               allFields.fields.map((field: IField) => (
-                <FieldCards field={field} key={field._id} />
+                <FieldCards
+                  field={field}
+                  key={field._id}
+                  bottonText="ver mas"
+                />
               ))}
           </div>
         </>

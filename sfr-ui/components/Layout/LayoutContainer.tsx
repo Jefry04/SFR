@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/require-default-props */
 
 import React from 'react';
@@ -54,13 +55,15 @@ const LayoutContainer = ({ children }: IProps) => {
               }}
             >
               {/* <img src={logo} alt="logo" /> */}
-              <Link href="/">
-                <Image
-                  width={150}
-                  height={60}
-                  src={logo}
-                  className="header__logo"
-                />
+              <Link href="/" passHref>
+                <a>
+                  <Image
+                    width={150}
+                    height={60}
+                    src={logo}
+                    className="header__logo"
+                  />
+                </a>
               </Link>
               <h3>BIENVENIDOS A LA MEJOR PAGINA DE RESERVAS DE CANCHA</h3>
               <ProfileMenu />

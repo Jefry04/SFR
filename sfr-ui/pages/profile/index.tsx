@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { Tabs } from '@mantine/core';
+import axios from 'axios';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -45,6 +46,17 @@ const index = () => {
     }
   };
 
+  const handleDelete = async (fieldId: string) => {
+    const response = await axios.delete(
+      `http://localhost:8080/fields/${fieldId}`,
+      {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      }
+    );
+    if (response.status === 200) alert('borrado con exito');
+  };
   return (
     <div className="user-profile">
       <ProfileHeader />
@@ -57,7 +69,12 @@ const index = () => {
             <div className="card__container">
               {fields &&
                 fields.map((field: IField) => (
-                  <FieldCards field={field} key={field._id} />
+                  <FieldCards
+                    field={field}
+                    key={field._id}
+                    onClick={() => handleDelete(field._id)}
+                    bottonText="Borrar cancha"
+                  />
                 ))}
             </div>
           </Tabs.Tab>

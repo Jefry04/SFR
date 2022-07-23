@@ -2,20 +2,17 @@
 
 import { Image } from '@mantine/core';
 import Link from 'next/link';
-import { IField } from '../types';
+import { IFieldCardsProps } from '../types';
 
-const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
-  const handleClick = () => {
-    alert('desplegar');
-  };
-
+const FieldCards = ({ field, onClick, bottonText }: IFieldCardsProps) => {
   return (
-    <Link href={`/fields/${field._id}`}>
-      <div className="card">
-        <header className="card__header">
-          <Image src={field?.images[0]?.url} height={160} alt="Cancha" />
-        </header>
-        <div className="card__body">
+    <div className="card">
+      <header className="card__header">
+        <Image src={field?.images[0]?.url} height={160} alt="Cancha" />
+      </header>
+
+      <div className="card__body">
+        <Link href={`/fields/${field._id}`}>
           <div className="card__body__info">
             <div className="card__body__info_title">
               <h3>NOMBRE: </h3>
@@ -33,12 +30,20 @@ const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
               <p> {field.phone}</p>
             </div>
           </div>
-          <button type="button" className="card__button" onClick={handleClick}>
-            Ver mas
+        </Link>
+        {bottonText === 'ver mas' ? (
+          <Link href={`/fields/${field._id}`}>
+            <button type="button" className="card__button">
+              {bottonText}
+            </button>
+          </Link>
+        ) : (
+          <button type="button" className="card__button" onClick={onClick}>
+            {bottonText}
           </button>
-        </div>
+        )}
       </div>
-    </Link>
+    </div>
   );
 };
 

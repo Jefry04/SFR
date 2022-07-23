@@ -6,6 +6,12 @@ export interface IFields {
   fields: IField[];
 }
 
+export interface IFieldCardsProps {
+  field: IField;
+  onClick?: VoidFunction;
+  bottonText: string;
+}
+
 export interface IField {
   _id: string;
   fieldName: string;
