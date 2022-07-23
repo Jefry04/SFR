@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 
 import FieldCards from '../components/FieldCards';
 import { getAllFields } from '../utils/getData';
-import { IallFields, IField } from '../types';
+import { IallFields, IField, IFilteredFields } from '../types';
 import LandingSwiper from '../components/Layout/LandingSwiper';
 import Filters from '../components/Filters';
 import { RootState } from '../store';
 
 const Home = ({ allFields }: IallFields) => {
-  const { filteredFields }: any = useSelector(
+  const { filteredFields }: IFilteredFields = useSelector(
     (state: RootState) => state.FieldReducer
   );
   return (

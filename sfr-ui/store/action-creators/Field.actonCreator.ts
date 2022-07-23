@@ -1,12 +1,18 @@
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { Dispatch, AnyAction } from 'redux';
+import { toast } from 'react-toastify';
 import {
   FIELD_SUCCESS,
   FIELD_ERROR,
   CREATE_FIELD_SUCCESS,
   FILTER_FIELD_ERROR,
   FILTER_FIELD_SUCCESS,
+  CREATE_FIELD_LOADING,
+  FIELD_BYUSER_LOADING,
+  FIELD_BYUSER_SUCCESS,
+  FIELD_BYUSER_ERROR,
+  CLEAR_FIELDS_FILTER,
 } from '../actions/Field.actions';
 import { hideCreateFieldForm } from './Modals.action.Creator';
 
@@ -34,6 +40,7 @@ export const createField = (
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch) => {
     try {
+      dispatch({ type: CREATE_FIELD_LOADING });
       const { data } = await axios.post(`${url}/fields`, fieldData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -42,8 +49,30 @@ export const createField = (
       });
       dispatch({ type: CREATE_FIELD_SUCCESS, payload: data.field });
       dispatch(hideCreateFieldForm());
-    } catch (error) {
+      dispatch(getFieldByUser(token));
+      toast.success('Se crea cancha exitosamente');
+    } catch (error: any) {
       dispatch({ type: FIELD_ERROR, payload: error });
+      toast.error(error.response.data.message);
+    }
+  };
+};
+
+export const getFieldByUser = (
+  token: string | null | undefined
+): ThunkAction<void, unknown, unknown, AnyAction> => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: FIELD_BYUSER_LOADING });
+      const { data } = await axios.get(`${url}/user/profile/fields`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      dispatch({ type: FIELD_BYUSER_SUCCESS, payload: data });
+    } catch (error: any) {
+      dispatch({ type: FIELD_BYUSER_ERROR, payload: error });
+      toast.error(error.response.data.message);
     }
   };
 };
@@ -66,4 +95,8 @@ export const getFilterFields = (
       dispatch({ type: FILTER_FIELD_ERROR, payload: error });
     }
   };
+};
+
+export const clearFieldsFilter = () => (dispatch: Dispatch) => {
+  return dispatch({ type: CLEAR_FIELDS_FILTER });
 };

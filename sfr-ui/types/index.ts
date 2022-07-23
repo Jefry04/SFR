@@ -6,6 +6,10 @@ export interface IFields {
   fields: IField[];
 }
 
+export interface IFilteredFields {
+  filteredFields: IField[];
+}
+
 export interface IFieldCardsProps {
   field: IField;
   onClick?: VoidFunction;

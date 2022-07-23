@@ -1,27 +1,33 @@
 /* eslint-disable no-underscore-dangle */
-import { Tabs } from '@mantine/core';
+import { Loader, Tabs } from '@mantine/core';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FieldCards from '../../components/FieldCards';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import { RootState } from '../../store';
+import { getFieldByUser } from '../../store/action-creators/Field.actonCreator';
+import { useAppDispatch } from '../../store/hooks';
 import { IField } from '../../types';
 import { IProps, IBooking } from '../../types/profile.type';
-import {
-  deleteBooking,
-  getBookingByUser,
-  getFieldByUser,
-} from '../../utils/getData';
+import { deleteBooking } from '../../utils/getData';
+import { getBookingByUser } from '../../store/action-creators/Booking.actionCreator';
 
 const index = () => {
   const [token, setToken] = useState<string | null>('');
-  const [fields, setFields] = useState([]);
-  const [bookings, setBookings] = useState([]);
   const { isAdmin }: IProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
+  const { isLoading, fieldsByUser }: IProps = useSelector(
+    (state: RootState) => state.FieldReducer
+  );
+  const { bookinIsLoading, bookings }: IProps = useSelector(
+    (state: RootState) => state.BookingReducer
+  );
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,31 +37,83 @@ const index = () => {
   }, []);
 
   const hanldeBookingCancel = (bookingId: string) => {
-    deleteBooking(token, bookingId).then((response) => {
-      if (response.status === 200)
-        getBookingByUser(token).then((items) => setBookings(items));
+    Swal.fire({
+      title: '¿Está seguro de cancelar?',
+      text: 'Está acción  cancleara la reserva',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, cancelar!',
+      cancelButtonText: 'Cancelar',
+      backdrop: true,
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          deleteBooking(token, bookingId).then((response) => {
+            if (response.status === 200) dispatch(getBookingByUser(token));
+          });
+        } catch (error) {
+          Swal.showValidationMessage(`La petición falló.`);
+        }
+        return null;
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `Se cancelo la reserva`,
+        });
+      }
     });
   };
 
   const handleTabChange = (tabIndex: number, tabKey: string) => {
     if (tabKey === 'Canchas') {
-      getFieldByUser(token).then((items) => setFields(items));
+      dispatch(getFieldByUser(token));
     }
     if (tabKey === 'Reservas') {
-      getBookingByUser(token).then((items) => setBookings(items));
+      dispatch(getBookingByUser(token));
     }
   };
 
   const handleDelete = async (fieldId: string) => {
-    const response = await axios.delete(
-      `http://localhost:8080/fields/${fieldId}`,
-      {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: 'Está acción  eliminara la cancha completamente.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, Eliminalo!',
+      cancelButtonText: 'Cancelar',
+      backdrop: true,
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          const response = await axios.delete(
+            `http://localhost:8080/fields/${fieldId}`,
+            {
+              headers: {
+                Authorization: `bearer ${token}`,
+              },
+            }
+          );
+          return response.data;
+        } catch (error) {
+          Swal.showValidationMessage(`La petición falló.`);
+        }
+        return null;
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(getFieldByUser(token));
+        Swal.fire({
+          title: `Se elimino la cancha`,
+        });
       }
-    );
-    if (response.status === 200) alert('borrado con exito');
+    });
   };
   return (
     <div className="user-profile">
@@ -66,22 +124,33 @@ const index = () => {
         </Tabs.Tab>
         {isAdmin && (
           <Tabs.Tab label="Canchas" tabKey="Canchas">
-            <div className="card__container">
-              {fields &&
-                fields.map((field: IField) => (
-                  <FieldCards
-                    field={field}
-                    key={field._id}
-                    onClick={() => handleDelete(field._id)}
-                    bottonText="Borrar cancha"
-                  />
-                ))}
-            </div>
+            {isLoading ? (
+              <div className="loading">
+                <Loader color="yellow" size={100} />
+              </div>
+            ) : (
+              <div className="card__container">
+                {fieldsByUser &&
+                  fieldsByUser.map((field: IField) => (
+                    <FieldCards
+                      field={field}
+                      key={field._id}
+                      onClick={() => handleDelete(field._id)}
+                      bottonText="Eliminar cancha"
+                    />
+                  ))}
+              </div>
+            )}
           </Tabs.Tab>
         )}
         {!isAdmin && (
           <Tabs.Tab label="Reservas" tabKey="Reservas">
-            {bookings &&
+            {bookinIsLoading ? (
+              <div className="loading">
+                <Loader color="yellow" size={100} />
+              </div>
+            ) : (
+              bookings &&
               bookings.map((booking: IBooking) => (
                 <div key={booking._id} className="user__profile__bookings">
                   <h3> {booking.fieldId.fieldName}</h3>
@@ -100,7 +169,8 @@ const index = () => {
                     CANCELAR
                   </button>
                 </div>
-              ))}
+              ))
+            )}
           </Tabs.Tab>
         )}
       </Tabs>

@@ -1,11 +1,18 @@
 import { Select } from '@mantine/core';
 import React, { useState } from 'react';
-import { getFilterFields } from '../store/action-creators/Field.actonCreator';
-import { useAppDispatch } from '../store/hooks';
+import {
+  clearFieldsFilter,
+  getFilterFields,
+} from '../store/action-creators/Field.actonCreator';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { IFilteredFields } from '../types';
 
 const Filters = () => {
   const [city, setCity] = useState<string>('');
   const [capacity, setCapacity] = useState<string>('');
+  const { filteredFields }: IFilteredFields = useAppSelector(
+    (state) => state.FieldReducer
+  );
   const dispatch = useAppDispatch();
 
   const handleFilter = async () => {
@@ -41,6 +48,16 @@ const Filters = () => {
       >
         Filtrar
       </button>
+      {filteredFields.length > 0 && (
+        <button
+          type="button"
+          // disabled={!(city || capacity)}
+          className="filter--button"
+          onClick={() => dispatch(clearFieldsFilter())}
+        >
+          Mostrar todo
+        </button>
+      )}
     </div>
   );
 };

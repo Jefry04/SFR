@@ -10,11 +10,13 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import AuthReducer from './reducers/Auth.reducer';
 import FieldReducer from './reducers/Field.reducer';
 import ModalsReducer from './reducers/Modals.reducer';
+import BookingReducer from './reducers/Booking.reducer';
 
 const rootReducer = combineReducers({
   AuthReducer,
   FieldReducer,
   ModalsReducer,
+  BookingReducer,
 });
 
 const middleware = [thunk];

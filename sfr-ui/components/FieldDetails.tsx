@@ -1,6 +1,7 @@
 import React, { useState, FC, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { Image } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { setHours, setMinutes } from 'date-fns';
@@ -15,6 +16,17 @@ import { ShowLoginForm } from '../store/action-creators/Modals.action.Creator';
 interface IProps {
   isAuth: boolean;
 }
+
+const fetchBookingDate = async (id: string | string[] | undefined) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/booking/${id}`);
+    // setBookingArray(response.data.boookingsByField);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   const [dateSelected, setSDateSelected] = useState(new Date());
   const [bookingArray, setBookingArray] = useState<any>([]);
@@ -28,16 +40,9 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   const startDate = setHours(setMinutes(new Date(), 0), 13);
 
   useEffect(() => {
-    const fetchBookingDate = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/booking/${id}`);
-        setBookingArray(response.data.boookingsByField);
-        return response;
-      } catch (error) {
-        return error;
-      }
-    };
-    fetchBookingDate();
+    fetchBookingDate(id).then((response: any) =>
+      setBookingArray(response.data.boookingsByField)
+    );
   }, []);
 
   useEffect(() => {
@@ -51,20 +56,50 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
     token = localStorage.getItem('token');
   }
 
-  const handleClick = (e: any) => {
+  const handleClick = async (e: any) => {
     e.preventDefault();
     if (!isAuth) {
       dispatch(ShowLoginForm());
     } else {
-      const response = axios.post(
-        `http://localhost:8080/booking/${id}`,
-        { bookingDate: dateSelected },
-        {
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
+      Swal.fire({
+        title: 'RESERVAR',
+        text: `Desea reservar para el dia ${dateSelected} ?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Si, Reservar!',
+        cancelButtonText: 'Cancelar',
+        backdrop: true,
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          try {
+            const response = await axios.post(
+              `http://localhost:8080/booking/${id}`,
+              { bookingDate: dateSelected },
+              {
+                headers: {
+                  Authorization: `bearer ${token}`,
+                },
+              }
+            );
+            return response.data;
+          } catch (error) {
+            Swal.showValidationMessage(`La petición falló.`);
+          }
+          return null;
+        },
+        allowOutsideClick: () => !Swal.isLoading(),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetchBookingDate(id).then((response: any) =>
+            setBookingArray(response.data.boookingsByField)
+          );
+          Swal.fire({
+            title: `Reserva confirmada, puedes ver tus reservas en tu perfil`,
+          });
         }
-      );
+      });
     }
   };
 

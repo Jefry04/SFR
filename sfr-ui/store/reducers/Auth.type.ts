@@ -20,4 +20,5 @@ export interface IinitialState {
   user: object;
   error: null | string;
   isAdmin: boolean;
+  isLoading: boolean;
 }

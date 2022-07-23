@@ -16,24 +16,6 @@ export const getFieldDetails = async (id: string) => {
   return data;
 };
 
-export const getFieldByUser = async (token: string | null) => {
-  const { data } = await axios.get(`${url}/user/profile/fields`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
-  return data;
-};
-
-export const getBookingByUser = async (token: string | null) => {
-  const { data } = await axios.get(`${url}/user/profile/bookings`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
-  return data;
-};
-
 export const deleteBooking = async (
   token: string | null,
   bookingId: string

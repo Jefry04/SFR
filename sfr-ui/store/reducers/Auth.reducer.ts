@@ -2,8 +2,8 @@
 import {
   AUTH_SUCCESS,
   AUTH_ERROR,
+  AUTH_REGISTER_LOADING,
   LOGOUT,
-  USER_SUCCESS,
 } from '../actions/Auth.actions';
 import { IinitialState, IAction } from './Auth.type';
 
@@ -12,9 +12,16 @@ const initialState: IinitialState = {
   user: {},
   error: null,
   isAdmin: false,
+  isLoading: false,
 };
 
 function AuthReducer(state: IinitialState = initialState, action: IAction) {
+  if (action.type === AUTH_REGISTER_LOADING) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
   if (action.type === AUTH_SUCCESS) {
     const { isAdmin } = action.payload;
     return {
@@ -23,11 +30,13 @@ function AuthReducer(state: IinitialState = initialState, action: IAction) {
       user: action.payload,
       error: null,
       isAdmin,
+      isLoading: false,
     };
   }
   if (action.type === AUTH_ERROR) {
     return {
       ...state,
+      isLoading: false,
       error: action.payload,
     };
   }

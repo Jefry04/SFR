@@ -47,11 +47,6 @@ const ProfileHeader = () => {
           </div>
         </div>
         <div className="user-profile__header__actions">
-          {/* <ButtonAction
-          className="btn-action--profile"
-          content="CAMBIAR CONTRASEÑA"
-          handleClick={() => dispatch(showChangePasswordForm())}
-        /> */}
           {isAdmin && (
             <button
               type="button"

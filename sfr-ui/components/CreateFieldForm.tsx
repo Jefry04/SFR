@@ -2,16 +2,23 @@
 /* eslint-disable react/button-has-type */
 import { useForm } from '@mantine/hooks';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Eraser, Upload } from 'tabler-icons-react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
-import { Group, Button, Box, TextInput } from '@mantine/core';
+import { Group, Button, Box, TextInput, Loader } from '@mantine/core';
 import { createField } from '../store/action-creators/Field.actonCreator';
 import { useAppDispatch } from '../store/hooks';
+import { RootState } from '../store';
 
+interface ICreateFieldsProps {
+  isLoading: boolean;
+}
 const CreateFieldForm = () => {
   const [images, setImages] = useState([]);
   const [file, setFile] = useState<any>(null);
-
+  const { isLoading }: ICreateFieldsProps = useSelector(
+    (state: RootState) => state.FieldReducer
+  );
   const maxNumber = 69;
   const dispatch = useAppDispatch();
 
@@ -40,10 +47,7 @@ const CreateFieldForm = () => {
     imageList: ImageListType,
     addUpdateIndex: number[] | undefined
   ) => {
-    // data for submit
     setImages(imageList as never[]);
-    console.log(imageList);
-    // TODO para ingresar varias imagenes:
     const array: any = [];
     // eslint-disable-next-line array-callback-return
     imageList.map((item) => {
@@ -62,8 +66,6 @@ const CreateFieldForm = () => {
     data.append('description', description);
     data.append('address', address);
     data.append('phone', phone);
-    // data.append('image', file as any);
-    // TOD para subir varias imagenes
     if (file) {
       for (let i = 0; i < file.length; i += 1) {
         data.append(`file_${i}`, file[i], file[i].name);
@@ -77,7 +79,12 @@ const CreateFieldForm = () => {
     dispatch(createField(data, token));
   };
 
-  return (
+  return isLoading ? (
+    <div className="loading">
+      <Loader color="yellow" size={100} />
+      <h2>Creando Cancha...</h2>
+    </div>
+  ) : (
     <div>
       <ImageUploading
         multiple

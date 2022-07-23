@@ -1,11 +1,12 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { ThunkAction } from 'redux-thunk';
+import { toast } from 'react-toastify';
 import { Dispatch, AnyAction } from 'redux';
 import {
   AUTH_SUCCESS,
   AUTH_ERROR,
   LOGOUT,
-  USER_SUCCESS,
+  AUTH_REGISTER_LOADING,
 } from '../actions/Auth.actions';
 import { FormValues, IloginForm } from '../../types/register.type';
 import { hideLoginForm, hideRegisterForm } from './Modals.action.Creator';
@@ -17,6 +18,7 @@ export const authUser = (
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch) => {
     try {
+      dispatch({ type: AUTH_REGISTER_LOADING });
       const response = await axios.post(`${url}/auth/login`, body);
       const { token } = response.data;
       if (typeof window !== 'undefined') {
@@ -24,8 +26,10 @@ export const authUser = (
       }
       dispatch({ type: AUTH_SUCCESS, payload: response.data.user });
       dispatch(hideLoginForm());
-    } catch (error) {
+      toast.success('Login exitoso');
+    } catch (error: any) {
       dispatch({ type: AUTH_ERROR, payload: error });
+      toast.error(error.response.data.message);
     }
   };
 };
@@ -40,8 +44,10 @@ export const authRegister = (
       localStorage.setItem('token', token);
       dispatch({ type: AUTH_SUCCESS, payload: response.data.user });
       dispatch(hideRegisterForm());
-    } catch (error) {
+      toast.success('Usuario registrado con exito');
+    } catch (error: any) {
       dispatch({ type: AUTH_ERROR, payload: error });
+      toast.error(error.response.data.message);
     }
   };
 };
