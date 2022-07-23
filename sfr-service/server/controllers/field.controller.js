@@ -24,16 +24,16 @@ module.exports = {
 
       if (!user) throw new Error('User not found');
       if (user.isAdmin === false) throw new Error('unauthorized user');
-      
+
       const images = [];
-      Object.entries(req.body).forEach(([key, value]) => { 
-        if(key.includes("file_"))  images.push(value)
-      })
+      Object.entries(req.body).forEach(([key, value]) => {
+        if (key.includes('file_')) images.push(value);
+      });
 
       const field = await Field.create({
         ...req.body,
         userId,
-        images
+        images,
       });
 
       res.status(200).json({
@@ -95,10 +95,14 @@ module.exports = {
         res.status(403).json({ message: 'unauthorized user' });
         return;
       }
-
-      if (field.image?.publicId) {
-        await cloudinary.uploader.destroy(field.image.publicId);
-      }
+      await Promise.all(
+        field.images?.map(async (item) => {
+          await cloudinary.uploader.destroy(item.publicId);
+        })
+      );
+      // if (field.images?.publicId) {
+      //   await cloudinary.uploader.destroy(field.image.publicId);
+      // }
       // get booking asociate to the field
       const booking = await Promise.all(
         field.bookings.map(async (item) => {
@@ -139,6 +143,7 @@ module.exports = {
         field,
       });
     } catch (error) {
+      console.log(error);
       res.status(400).json(error);
     }
   },
