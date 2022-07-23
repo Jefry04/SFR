@@ -1,14 +1,19 @@
 /* eslint-disable no-underscore-dangle */
+
 import { Image } from '@mantine/core';
 import Link from 'next/link';
 import { IField } from '../types';
 
 const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
+  const handleClick = () => {
+    alert('desplegar');
+  };
+
   return (
     <Link href={`/fields/${field._id}`}>
       <div className="card">
         <header className="card__header">
-          <Image src={field?.image?.url} height={160} alt="Cancha" />
+          <Image src={field?.images[0]?.url} height={160} alt="Cancha" />
         </header>
         <div className="card__body">
           <div className="card__body__info">
@@ -28,7 +33,7 @@ const FieldCards: React.FC<{ field: IField }> = ({ field }) => {
               <p> {field.phone}</p>
             </div>
           </div>
-          <button type="button" className="card__button">
+          <button type="button" className="card__button" onClick={handleClick}>
             Ver mas
           </button>
         </div>

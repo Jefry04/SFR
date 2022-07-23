@@ -21,6 +21,7 @@ const index = () => {
   const { isAdmin }: IProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const localToken = localStorage.getItem('token');
@@ -53,10 +54,12 @@ const index = () => {
         </Tabs.Tab>
         {isAdmin && (
           <Tabs.Tab label="Canchas" tabKey="Canchas">
-            {fields &&
-              fields.map((field: IField) => (
-                <FieldCards field={field} key={field._id} />
-              ))}
+            <div className="card__container">
+              {fields &&
+                fields.map((field: IField) => (
+                  <FieldCards field={field} key={field._id} />
+                ))}
+            </div>
           </Tabs.Tab>
         )}
         {!isAdmin && (

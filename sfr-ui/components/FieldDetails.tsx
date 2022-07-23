@@ -83,7 +83,7 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
         <h3>CANCHA: </h3> <p>{field.fieldName}</p>
       </div>
       <div className="field__image">
-        <Image src={field?.image?.url} height={160} alt="Cancha" />
+        <Image src={field?.images[0]?.url} height={160} alt="Cancha" />
       </div>
       <div className="fieldDetails__info">
         <div className="fieldDetails__info__description">

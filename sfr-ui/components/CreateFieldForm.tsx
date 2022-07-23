@@ -10,7 +10,7 @@ import { useAppDispatch } from '../store/hooks';
 
 const CreateFieldForm = () => {
   const [images, setImages] = useState([]);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any>(null);
 
   const maxNumber = 69;
   const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const CreateFieldForm = () => {
     imageList.map((item) => {
       array.push(item.file);
     });
-    setFile(array[0]);
+    setFile(array);
   };
 
   const handleCreateField = () => {
@@ -62,13 +62,13 @@ const CreateFieldForm = () => {
     data.append('description', description);
     data.append('address', address);
     data.append('phone', phone);
-    data.append('image', file as any);
+    // data.append('image', file as any);
     // TOD para subir varias imagenes
-    // if (file) {
-    //   for (let i = 0; i < file.length; i += 1) {
-    //     data.append(`file_${i}`, file[i], file[i].name);
-    //   }
-    // }
+    if (file) {
+      for (let i = 0; i < file.length; i += 1) {
+        data.append(`file_${i}`, file[i], file[i].name);
+      }
+    }
     let token;
     if (typeof window !== 'undefined') {
       token = localStorage.getItem('token');
@@ -80,7 +80,7 @@ const CreateFieldForm = () => {
   return (
     <div>
       <ImageUploading
-        // multiple
+        multiple
         value={images}
         onChange={onChange}
         maxNumber={maxNumber}
