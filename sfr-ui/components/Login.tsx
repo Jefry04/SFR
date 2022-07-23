@@ -10,12 +10,6 @@ import { useAppDispatch } from '../store/hooks';
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (isAuth) router.push('/');
-  // }, [isAuth]);
 
   const form = useForm<IloginForm>({
     initialValues: {

@@ -96,7 +96,8 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
             setBookingArray(response.data.boookingsByField)
           );
           Swal.fire({
-            title: `Reserva confirmada, puedes ver tus reservas en tu perfil`,
+            title: `Reserva confirmada`,
+            text: 'Enviamos correo con la informacion de la reserva',
           });
         }
       });

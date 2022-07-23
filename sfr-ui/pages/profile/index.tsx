@@ -14,6 +14,7 @@ import { IField } from '../../types';
 import { IProps, IBooking } from '../../types/profile.type';
 import { deleteBooking } from '../../utils/getData';
 import { getBookingByUser } from '../../store/action-creators/Booking.actionCreator';
+import withAuth from '../../utils/HOC/witAuth';
 
 const index = () => {
   const [token, setToken] = useState<string | null>('');
@@ -115,6 +116,7 @@ const index = () => {
       }
     });
   };
+
   return (
     <div className="user-profile">
       <ProfileHeader />
@@ -178,4 +180,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default withAuth(index);
