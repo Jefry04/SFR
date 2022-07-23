@@ -25,13 +25,13 @@ const fieldSchema = new Schema({
     required: true,
     type: String,
   },
-  image: Object,
+  images: { type: Array },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
   bookings: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Booking" }],
+    type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
   },
 });
 

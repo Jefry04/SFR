@@ -74,7 +74,6 @@ const formData = (req, _res, next) => {
         }
 
         if (cloudRes) {
-       
           const {
             public_id: publicId,
             width,

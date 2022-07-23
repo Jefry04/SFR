@@ -24,10 +24,16 @@ module.exports = {
 
       if (!user) throw new Error('User not found');
       if (user.isAdmin === false) throw new Error('unauthorized user');
+      
+      const images = [];
+      Object.entries(req.body).forEach(([key, value]) => { 
+        if(key.includes("file_"))  images.push(value)
+      })
 
       const field = await Field.create({
         ...req.body,
         userId,
+        images
       });
 
       res.status(200).json({
