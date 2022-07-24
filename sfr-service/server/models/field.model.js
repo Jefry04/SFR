@@ -9,15 +9,29 @@ const fieldSchema = new Schema({
     required: true,
     type: Number,
   },
-  photos: {
-    type: Array,
+  city: {
+    required: true,
+    type: String,
   },
+  description: {
+    required: true,
+    type: String,
+  },
+  phone: {
+    required: true,
+    type: Number,
+  },
+  address: {
+    required: true,
+    type: String,
+  },
+  images: { type: Array },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
   bookings: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Booking" }],
+    type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
   },
 });
 

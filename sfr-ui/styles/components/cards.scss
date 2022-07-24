@@ -1,0 +1,97 @@
+@import '../abstract/mixins';
+
+.card__container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+
+  .card {
+    width: 70%;
+    height: 200px;
+    background-color: var(--card-background);
+    display: flex;
+    flex-direction: row;
+    padding-left: 3%;
+    margin-bottom: 4%;
+    border: solid grey 1px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    .card__header {
+      width: 40%;
+      margin: 6px 0 6px 0;
+      margin: auto;
+
+      .mantine-15po0m8 {
+        width: 90%;
+      }
+    }
+    .card__body {
+      display: flex;
+      width: 60%;
+      margin: 6px 0 6px 0;
+      cursor: pointer;
+    }
+
+    .card__body__info {
+      display: flex;
+      width: 80%;
+      margin-top: 8px;
+      h3 {
+        margin: 0px 0px 10px 1px;
+        color: var(--card-title);
+      }
+      h4 {
+        margin: 0 5px 8px 0;
+        color: var(--card-subtitle);
+      }
+    }
+    .card__body__info_title {
+      width: 25%;
+    }
+    .card__body__info_data {
+      width: 50%;
+      margin-left: 40px;
+      p {
+        margin: 0 0 8px 0;
+        color: var(--card-paragraph);
+      }
+      @include tablet{
+        margin-left: 32px;
+      }
+      @include desktop {
+        margin-left: 12px;
+      }
+    }
+
+    .mantine-1kr6i1s {
+      padding: 0;
+      width: 20%;
+    }
+  }
+}
+
+.card__button {
+  height: 36px;
+
+  font-weight: 600;
+  margin: auto;
+  margin-right: 14px;
+  padding: 0 14px;
+  background-color: var(--button-background);
+  border-radius: 16px;
+  color: var(--button-text);
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.card__button:hover {
+  box-shadow: var(--button-text);
+  transform: scale(1.05) rotate(-1deg);
+}

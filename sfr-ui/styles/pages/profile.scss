@@ -1,0 +1,15 @@
+.user-profile {
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.user__profile__bookings {
+  h3 {
+    color: var(--text-headline);
+  }
+  p{
+    color: var(--card-paragraph);
+    margin-bottom: 15px;
+  }
+}
