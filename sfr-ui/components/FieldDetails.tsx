@@ -20,7 +20,6 @@ interface IProps {
 const fetchBookingDate = async (id: string | string[] | undefined) => {
   try {
     const response = await axios.get(`http://localhost:8080/booking/${id}`);
-    // setBookingArray(response.data.boookingsByField);
     return response;
   } catch (error) {
     return error;
@@ -127,12 +126,14 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
             <h4>Ciudad:</h4>
             <h4>Direccion:</h4>
             <h4>Telefono: </h4>
+            <h4>Capacidad: </h4>
             <h4>Descripcion: </h4>
           </div>
           <div className="fieldDetails__body__info_data">
             <p>{field.city}</p>
             <p>{field.address}</p>
             <p> {field.phone}</p>
+            <p>{field.capacity} Jugadores</p>
             <p>{field.description}</p>
           </div>
         </div>
@@ -160,7 +161,7 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
       <div className="fieldDetails__footer">
         <div className="fieldDetails__footer__icons">
           <Beer size={60} strokeWidth={1} color="#faae2c" />
-          <p>1</p>
+          <p>SI</p>
         </div>
         <div className="fieldDetails__footer__icons">
           <Parking size={60} strokeWidth={1} color="#faae2c" />

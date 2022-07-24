@@ -22,12 +22,14 @@ const FieldCards = ({ field, onClick, bottonText }: IFieldCardsProps) => {
               <h4>Direccion:</h4>
 
               <h4>Telefono: </h4>
+              <h4>Capacidad: </h4>
             </div>
             <div className="card__body__info_data">
               <h3>{field.fieldName}</h3>
               <p>{field.city}</p>
               <p>{field.address}</p>
               <p> {field.phone}</p>
+              <p> {field.capacity} Jugadores</p>
             </div>
           </div>
         </Link>

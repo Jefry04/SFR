@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LayoutContainer>
         <Component {...pageProps} />
         <ToastContainer
-          position="top-right"
+          position="bottom-right"
           autoClose={5000}
           theme="dark"
           hideProgressBar={false}
