@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from '@mantine/hooks';
 import { Eraser, Upload } from 'tabler-icons-react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
-import { Group, Button, Box, TextInput, Loader } from '@mantine/core';
+import { Group, Button, Box, TextInput, Loader, Select } from '@mantine/core';
 import { createField } from '../store/action-creators/Field.actonCreator';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {
@@ -200,10 +200,14 @@ const CreateFieldForm = () => {
             placeholder="Capacidad jugadores"
             {...form.getInputProps('capacity')}
           />
-          <TextInput
+          <Select
             required
             label="Ciudad"
             placeholder="Ciudad"
+            data={[
+              { value: 'Medellin', label: 'Medellin' },
+              { value: 'Bogota', label: 'Bogota' },
+            ]}
             {...form.getInputProps('city')}
           />
           <TextInput

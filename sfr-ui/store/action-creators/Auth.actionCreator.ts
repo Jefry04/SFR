@@ -39,6 +39,7 @@ export const authRegister = (
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch) => {
     try {
+      dispatch({ type: AUTH_REGISTER_LOADING });
       const response = await axios.post(`${url}/auth/signup`, body);
       const { token } = response.data;
       localStorage.setItem('token', token);

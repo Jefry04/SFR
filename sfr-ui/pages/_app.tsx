@@ -3,6 +3,7 @@ import { Provider, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import '../index.scss';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { wrapper, store } from '../store';
@@ -21,21 +22,28 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <Provider store={store}>
-      <LayoutContainer>
-        <Component {...pageProps} />
-        <ToastContainer
-          position="bottom-right"
-          autoClose={5000}
-          theme="dark"
-          hideProgressBar={false}
-          newestOnTop={false}
-          draggable={false}
-          closeOnClick
-          pauseOnHover
-        />
-      </LayoutContainer>
-    </Provider>
+    <>
+      <Head>
+        <title>SFR</title>
+        <meta name="SFR" content="Soccer field rental" />
+        <link rel="icon" href="/LOGO.png" />
+      </Head>
+      <Provider store={store}>
+        <LayoutContainer>
+          <Component {...pageProps} />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            theme="dark"
+            hideProgressBar={false}
+            newestOnTop={false}
+            draggable={false}
+            closeOnClick
+            pauseOnHover
+          />
+        </LayoutContainer>
+      </Provider>
+    </>
   );
 }
 
