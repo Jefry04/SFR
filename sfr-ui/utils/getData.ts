@@ -30,7 +30,7 @@ export const deleteBooking = async (
 
 export const fetchBookingDate = async (id: string | string[] | undefined) => {
   try {
-    const response = await axios.get(`http://localhost:8080/booking/${id}`);
+    const response = await axios.get(`${url}/booking/${id}`);
     return response.data;
   } catch (error) {
     return error;

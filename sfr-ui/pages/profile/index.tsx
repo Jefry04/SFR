@@ -26,6 +26,7 @@ const index = () => {
   const { bookinIsLoading, bookings }: IProps = useSelector(
     (state: RootState) => state.BookingReducer
   );
+  const url = process.env.NEXT_PUBLIC_API_URL;
 
   const dispatch = useAppDispatch();
 
@@ -91,14 +92,11 @@ const index = () => {
       showLoaderOnConfirm: true,
       preConfirm: async () => {
         try {
-          const response = await axios.delete(
-            `http://localhost:8080/fields/${fieldId}`,
-            {
-              headers: {
-                Authorization: `bearer ${token}`,
-              },
-            }
-          );
+          const response = await axios.delete(`${url}/fields/${fieldId}`, {
+            headers: {
+              Authorization: `bearer ${token}`,
+            },
+          });
           return response.data;
         } catch (error) {
           Swal.showValidationMessage(`La petición falló.`);

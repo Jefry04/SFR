@@ -26,6 +26,7 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   const { isAuth }: IFieldDetailsProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
+  const url = process.env.NEXT_PUBLIC_API_URL;
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { id } = router.query;
@@ -38,8 +39,8 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   }, []);
 
   useEffect(() => {
-    if (bookingArray.length === 0) return;
-    const tempDates = bookingArray.map((item: IBooking) => item.bookingDate);
+    if (bookingArray?.length === 0) return;
+    const tempDates = bookingArray?.map((item: IBooking) => item.bookingDate);
     setbookingArrayDates(tempDates);
   }, [bookingArray]);
 
@@ -67,7 +68,7 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
         preConfirm: async () => {
           try {
             const response = await axios.post(
-              `http://localhost:8080/booking/${id}`,
+              `${url}/booking/${id}`,
               { bookingDate: dateSelected },
               {
                 headers: {
