@@ -9,18 +9,17 @@ import FieldCards from '../../components/FieldCards';
 import ProfileHeader from '../../components/profile/ProfileHeader';
 import { RootState } from '../../store';
 import { getFieldByUser } from '../../store/action-creators/Field.actonCreator';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { IField } from '../../types';
 import { IProps, IBooking } from '../../types/profile.type';
 import { deleteBooking } from '../../utils/getData';
 import { getBookingByUser } from '../../store/action-creators/Booking.actionCreator';
 import withAuth from '../../utils/HOC/witAuth';
+import ProfileInfo from '../../components/profile/ProfileInfo';
 
 const index = () => {
   const [token, setToken] = useState<string | null>('');
-  const { isAdmin }: IProps = useSelector(
-    (state: RootState) => state.AuthReducer
-  );
+  const { isAdmin }: IProps = useAppSelector((state) => state.AuthReducer);
   const { isLoading, fieldsByUser }: IProps = useSelector(
     (state: RootState) => state.FieldReducer
   );
@@ -122,7 +121,7 @@ const index = () => {
       <ProfileHeader />
       <Tabs variant="outline" tabPadding="sm" onTabChange={handleTabChange}>
         <Tabs.Tab label="Perfil" tabKey="profile">
-          {/* <ProfileForm user={user} /> */}
+          <ProfileInfo />
         </Tabs.Tab>
         {isAdmin && (
           <Tabs.Tab label="Canchas" tabKey="Canchas">
@@ -155,7 +154,7 @@ const index = () => {
               bookings &&
               bookings.map((booking: IBooking) => (
                 <div key={booking._id} className="user__profile__bookings">
-                  <h3> {booking.fieldId.fieldName}</h3>
+                  <h3> {booking?.fieldId?.fieldName}</h3>
                   <p>
                     FECHA:{' '}
                     {format(

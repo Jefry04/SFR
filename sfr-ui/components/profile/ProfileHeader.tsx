@@ -5,7 +5,7 @@ import { RootState } from '../../store';
 import { showCreateFieldForm } from '../../store/action-creators/Modals.action.Creator';
 import { useAppDispatch } from '../../store/hooks';
 
-interface IProps {
+export interface IProps {
   isAuth: boolean;
   user: IUser;
   isAdmin: boolean;
@@ -24,7 +24,7 @@ interface IUser {
 }
 
 const ProfileHeader = () => {
-  const { isAuth, user, isAdmin }: IProps = useSelector(
+  const { user, isAdmin }: IProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
   const dispatch = useAppDispatch();
