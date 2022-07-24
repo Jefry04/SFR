@@ -1,5 +1,5 @@
-import { Select } from '@mantine/core';
 import React, { useState } from 'react';
+import { Select } from '@mantine/core';
 import {
   clearFieldsFilter,
   getFilterFields,
@@ -51,7 +51,6 @@ const Filters = () => {
       {filteredFields.length > 0 && (
         <button
           type="button"
-          // disabled={!(city || capacity)}
           className="filter--button"
           onClick={() => dispatch(clearFieldsFilter())}
         >

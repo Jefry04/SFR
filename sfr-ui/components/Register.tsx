@@ -11,13 +11,12 @@ import {
   Checkbox,
 } from '@mantine/core';
 import { FormValues } from '../types/register.type';
-import { RootState } from '../store';
 import { authRegister } from '../store/action-creators/Auth.actionCreator';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const Register = () => {
   const dispatch = useAppDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.AuthReducer);
+  const { isAuth } = useAppSelector((state) => state.AuthReducer);
   const router = useRouter();
 
   useEffect(() => {

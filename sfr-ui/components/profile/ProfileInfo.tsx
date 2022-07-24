@@ -1,8 +1,7 @@
 import { List, Text, ThemeIcon } from '@mantine/core';
-import React from 'react';
 import { Alien, CircleCheck, CircleDashed, Mail } from 'tabler-icons-react';
 import { useAppSelector } from '../../store/hooks';
-import { IProps } from './ProfileHeader';
+import { IProps } from '../../types/profile.type';
 
 const ProfileInfo = () => {
   const { isAdmin, user }: IProps = useAppSelector(

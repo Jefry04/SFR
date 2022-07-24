@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
-import { useRouter } from 'next/router';
 import { PasswordInput, Group, Button, Box, TextInput } from '@mantine/core';
 import { IloginForm } from '../types/register.type';
 import { authUser } from '../store/action-creators/Auth.actionCreator';
-import { RootState } from '../store';
+
 import { useAppDispatch } from '../store/hooks';
 
 const Login = () => {

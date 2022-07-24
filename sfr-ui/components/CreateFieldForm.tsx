@@ -1,36 +1,24 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/button-has-type */
-import { useForm } from '@mantine/hooks';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useForm } from '@mantine/hooks';
 import { Eraser, Upload } from 'tabler-icons-react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { Group, Button, Box, TextInput, Loader } from '@mantine/core';
 import { createField } from '../store/action-creators/Field.actonCreator';
-import { useAppDispatch } from '../store/hooks';
-import { RootState } from '../store';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import {
+  ICreateFieldsProps,
+  IValuesCreateField,
+} from '../types/components/CreateFieldForm.type';
 
-interface ICreateFieldsProps {
-  isLoading: boolean;
-}
 const CreateFieldForm = () => {
   const [images, setImages] = useState([]);
   const [file, setFile] = useState<any>(null);
-  const { isLoading }: ICreateFieldsProps = useSelector(
-    (state: RootState) => state.FieldReducer
+  const { isLoading }: ICreateFieldsProps = useAppSelector(
+    (state) => state.FieldReducer
   );
   const maxNumber = 69;
   const dispatch = useAppDispatch();
-
-  // TODO SACAR Interfa de tipado
-  interface IValuesCreateField {
-    fieldName: string;
-    capacity: number;
-    city: string;
-    description: string;
-    address: string;
-    phone: string;
-  }
 
   const form = useForm<IValuesCreateField>({
     initialValues: {
@@ -101,7 +89,6 @@ const CreateFieldForm = () => {
           isDragging,
           dragProps,
         }) => (
-          // write your building UI
           <div className="upload__image-wrapper">
             <Button
               leftIcon={<Upload />}
@@ -123,8 +110,6 @@ const CreateFieldForm = () => {
                   marginRight: 8,
                 },
               })}
-              // variant="white"
-              // color="yellow"
               style={isDragging ? { color: 'red' } : undefined}
               onClick={onImageUpload}
               {...dragProps}

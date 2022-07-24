@@ -12,25 +12,18 @@ import { IField } from '../types';
 import { RootState } from '../store';
 import { useAppDispatch } from '../store/hooks';
 import { ShowLoginForm } from '../store/action-creators/Modals.action.Creator';
-
-interface IProps {
-  isAuth: boolean;
-}
-
-const fetchBookingDate = async (id: string | string[] | undefined) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/booking/${id}`);
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
+import {
+  IBooking,
+  IFieldDetailsProps,
+  IResponse,
+} from '../types/components/FieldDetails.type';
+import { fetchBookingDate } from '../utils/getData';
 
 const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   const [dateSelected, setSDateSelected] = useState(new Date());
-  const [bookingArray, setBookingArray] = useState<any>([]);
-  const [bookingArrayDates, setbookingArrayDates] = useState<any>([]);
-  const { isAuth }: IProps = useSelector(
+  const [bookingArray, setBookingArray] = useState<IBooking[]>([]);
+  const [bookingArrayDates, setbookingArrayDates] = useState<Date[]>([]);
+  const { isAuth }: IFieldDetailsProps = useSelector(
     (state: RootState) => state.AuthReducer
   );
   const dispatch = useAppDispatch();
@@ -39,14 +32,14 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
   const startDate = setHours(setMinutes(new Date(), 0), 13);
 
   useEffect(() => {
-    fetchBookingDate(id).then((response: any) =>
-      setBookingArray(response.data.boookingsByField)
+    fetchBookingDate(id).then((response: IResponse) =>
+      setBookingArray(response.boookingsByField)
     );
   }, []);
 
   useEffect(() => {
     if (bookingArray.length === 0) return;
-    const tempDates = bookingArray.map((item: any) => item.bookingDate);
+    const tempDates = bookingArray.map((item: IBooking) => item.bookingDate);
     setbookingArrayDates(tempDates);
   }, [bookingArray]);
 
@@ -91,8 +84,8 @@ const FieldDetails: FC<{ field: IField }> = ({ field }) => {
         allowOutsideClick: () => !Swal.isLoading(),
       }).then((result) => {
         if (result.isConfirmed) {
-          fetchBookingDate(id).then((response: any) =>
-            setBookingArray(response.data.boookingsByField)
+          fetchBookingDate(id).then((response: IResponse) =>
+            setBookingArray(response.boookingsByField)
           );
           Swal.fire({
             title: `Reserva confirmada`,

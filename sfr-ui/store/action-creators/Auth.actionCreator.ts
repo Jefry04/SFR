@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { toast } from 'react-toastify';
 import { Dispatch, AnyAction } from 'redux';
@@ -52,7 +52,7 @@ export const authRegister = (
   };
 };
 
-export const getUerData = (token: string) => {
+export const getUserData = (token: string) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.get(`${url}/user/profile`, {

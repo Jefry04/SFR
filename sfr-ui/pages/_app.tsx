@@ -7,7 +7,7 @@ import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { wrapper, store } from '../store';
 import LayoutContainer from '../components/Layout/LayoutContainer';
-import { getUerData } from '../store/action-creators/Auth.actionCreator';
+import { getUserData } from '../store/action-creators/Auth.actionCreator';
 import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      dispatch(getUerData(token));
+      dispatch(getUserData(token));
     }
   }, []);
 

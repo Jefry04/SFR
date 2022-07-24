@@ -1,5 +1,5 @@
 /* eslint-disable default-param-last */
-import { IinitialState } from '../../types/field.reducer.type';
+import { IAction } from '../../types/field.reducer.type';
 import {
   FIELD_SUCCESS,
   CREATE_FIELD_SUCCESS,
@@ -20,11 +20,6 @@ const initialState = {
   isLoading: false,
   fieldsByUser: [],
 };
-
-interface IAction {
-  type: string;
-  payload: string | object;
-}
 
 function FieldReducer(state = initialState, action: IAction) {
   if (action.type === CREATE_FIELD_LOADING) {

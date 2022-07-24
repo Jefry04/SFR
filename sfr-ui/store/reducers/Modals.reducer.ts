@@ -1,4 +1,5 @@
 /* eslint-disable default-param-last */
+import { IinitialState, IModalAction } from '../../types/modals.reducer.type';
 import {
   SHOW_CREATE_FIELD,
   SHOW_LOGIN_FORM,
@@ -7,15 +8,6 @@ import {
   SHOW_REGISTER_FORM,
   HIDE_REGISTER_FORM,
 } from '../actions/Modal.actions';
-
-interface IinitialState {
-  showCreateFieldForm: boolean;
-  showLoginForm: boolean;
-  showRegisterForm: boolean;
-}
-interface IModalAction {
-  type: string;
-}
 
 const initialState: IinitialState = {
   showCreateFieldForm: false,

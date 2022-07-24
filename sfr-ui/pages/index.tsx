@@ -1,17 +1,14 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 import FieldCards from '../components/FieldCards';
 import { getAllFields } from '../utils/getData';
 import { IallFields, IField, IFilteredFields } from '../types';
 import LandingSwiper from '../components/Layout/LandingSwiper';
 import Filters from '../components/Filters';
-import { RootState } from '../store';
+import { useAppSelector } from '../store/hooks';
 
 const Home = ({ allFields }: IallFields) => {
-  const { filteredFields }: IFilteredFields = useSelector(
-    (state: RootState) => state.FieldReducer
+  const { filteredFields }: IFilteredFields = useAppSelector(
+    (state) => state.FieldReducer
   );
   return (
     <>

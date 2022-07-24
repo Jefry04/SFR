@@ -1,31 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { UserCircle } from 'tabler-icons-react';
-import { RootState } from '../../store';
 import { showCreateFieldForm } from '../../store/action-creators/Modals.action.Creator';
-import { useAppDispatch } from '../../store/hooks';
-
-export interface IProps {
-  isAuth: boolean;
-  user: IUser;
-  isAdmin: boolean;
-}
-interface IUser {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  isAdmin: boolean;
-  bookings: any[];
-  createdAt: Date;
-  updatedAt: Date;
-  __v: number;
-}
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { IProps } from '../../types/profile.type';
 
 const ProfileHeader = () => {
-  const { user, isAdmin }: IProps = useSelector(
-    (state: RootState) => state.AuthReducer
+  const { user, isAdmin }: IProps = useAppSelector(
+    (state) => state.AuthReducer
   );
   const dispatch = useAppDispatch();
 

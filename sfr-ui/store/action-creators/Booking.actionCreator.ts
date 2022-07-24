@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
-import { Dispatch, AnyAction } from 'redux';
+import { AnyAction } from 'redux';
 import { toast } from 'react-toastify';
 import {
   GET_BOOKING_SUCCESS,

@@ -27,3 +27,12 @@ export const deleteBooking = async (
   });
   return response;
 };
+
+export const fetchBookingDate = async (id: string | string[] | undefined) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/booking/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
