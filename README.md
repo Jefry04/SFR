@@ -1,6 +1,6 @@
 # SOCCER FIELD RENTAL (SFR)
 
-![preview](/sfr-ui/public/preview-sfr.pngg)
+![preview](/sfr-ui/public/preview-sfr.png)
 SFR is a fullstack app developed individually during the last two weeks of the make it real fullstack advanced bootcamp 
 
 The page is deployed here:
