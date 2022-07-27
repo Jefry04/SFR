@@ -64,7 +64,7 @@ const CreateFieldForm = () => {
       token = localStorage.getItem('token');
     }
 
-    dispatch(createField(data, token));
+    dispatch(createField(data));
   };
 
   return isLoading ? (

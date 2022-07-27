@@ -11,17 +11,16 @@ import {
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
-export const getBookingByUser = (
-  token: string | null | undefined
-): ThunkAction<void, unknown, unknown, AnyAction> => {
+export const getBookingByUser = (): ThunkAction<
+  void,
+  unknown,
+  unknown,
+  AnyAction
+> => {
   return async (dispatch) => {
     try {
       dispatch({ type: GET_BOOKING_LOADING });
-      const { data } = await axios.get(`${url}/user/profile/bookings`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
+      const { data } = await axios.get(`${url}/user/profile/bookings`);
       dispatch({ type: GET_BOOKING_SUCCESS, payload: data });
     } catch (error: any) {
       dispatch({ type: GET_BOOKING_ERROR, payload: error });

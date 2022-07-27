@@ -16,15 +16,8 @@ export const getFieldDetails = async (id: string) => {
   return data;
 };
 
-export const deleteBooking = async (
-  token: string | null,
-  bookingId: string
-) => {
-  const response = await axios.delete(`${url}/booking/${bookingId}`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+export const deleteBooking = async (bookingId: string) => {
+  const response = await axios.delete(`${url}/booking/${bookingId}`);
   return response;
 };
 

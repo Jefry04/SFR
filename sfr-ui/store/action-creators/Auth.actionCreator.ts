@@ -53,7 +53,7 @@ export const authRegister = (
   };
 };
 
-export const getUserData = (token: string) => {
+export const getUserData = (token: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.get(`${url}/user/profile`, {

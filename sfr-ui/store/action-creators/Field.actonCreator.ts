@@ -35,8 +35,7 @@ export const getAllFields1 = (): ThunkAction<
 };
 
 export const createField = (
-  fieldData: any,
-  token: string | null | undefined
+  fieldData: any
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch) => {
     try {
@@ -44,12 +43,11 @@ export const createField = (
       const { data } = await axios.post(`${url}/fields`, fieldData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `bearer ${token}`,
         },
       });
       dispatch({ type: CREATE_FIELD_SUCCESS, payload: data.field });
       dispatch(hideCreateFieldForm());
-      dispatch(getFieldByUser(token));
+      dispatch(getFieldByUser());
       toast.success('Se crea cancha exitosamente');
     } catch (error: any) {
       dispatch({ type: FIELD_ERROR, payload: error });
@@ -58,17 +56,16 @@ export const createField = (
   };
 };
 
-export const getFieldByUser = (
-  token: string | null | undefined
-): ThunkAction<void, unknown, unknown, AnyAction> => {
+export const getFieldByUser = (): ThunkAction<
+  void,
+  unknown,
+  unknown,
+  AnyAction
+> => {
   return async (dispatch) => {
     try {
       dispatch({ type: FIELD_BYUSER_LOADING });
-      const { data } = await axios.get(`${url}/user/profile/fields`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
+      const { data } = await axios.get(`${url}/user/profile/fields`);
       dispatch({ type: FIELD_BYUSER_SUCCESS, payload: data });
     } catch (error: any) {
       dispatch({ type: FIELD_BYUSER_ERROR, payload: error });

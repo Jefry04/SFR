@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Provider, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { ToastContainer } from 'react-toastify';
 import '../index.scss';
 import type { AppProps } from 'next/app';
@@ -10,12 +11,20 @@ import { wrapper, store } from '../store';
 import LayoutContainer from '../components/Layout/LayoutContainer';
 import { getUserData } from '../store/action-creators/Auth.actionCreator';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppSelector } from '../store/hooks';
+import { IProps } from '../types/profile.type';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const dispatch: ThunkDispatch<unknown, unknown, AnyAction> = useDispatch();
+  const { user }: IProps = useAppSelector((state) => state.AuthReducer);
+
+  let token: string | null;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
     if (token) {
       dispatch(getUserData(token));
     }

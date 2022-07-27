@@ -20,8 +20,8 @@ import ProfileInfo from '../../components/profile/ProfileInfo';
 const index = () => {
   const [token, setToken] = useState<string | null>('');
   const { isAdmin }: IProps = useAppSelector((state) => state.AuthReducer);
-  const { isLoading, fieldsByUser }: IProps = useSelector(
-    (state: RootState) => state.FieldReducer
+  const { isLoading, fieldsByUser }: IProps = useAppSelector(
+    (state) => state.FieldReducer
   );
   const { bookinIsLoading, bookings }: IProps = useSelector(
     (state: RootState) => state.BookingReducer
@@ -51,8 +51,8 @@ const index = () => {
       showLoaderOnConfirm: true,
       preConfirm: async () => {
         try {
-          deleteBooking(token, bookingId).then((response) => {
-            if (response.status === 200) dispatch(getBookingByUser(token));
+          deleteBooking(bookingId).then((response) => {
+            if (response.status === 200) dispatch(getBookingByUser());
           });
         } catch (error) {
           Swal.showValidationMessage(`La petición falló.`);
@@ -71,10 +71,10 @@ const index = () => {
 
   const handleTabChange = (tabIndex: number, tabKey: string) => {
     if (tabKey === 'Canchas') {
-      dispatch(getFieldByUser(token));
+      dispatch(getFieldByUser());
     }
     if (tabKey === 'Reservas') {
-      dispatch(getBookingByUser(token));
+      dispatch(getBookingByUser());
     }
   };
 
@@ -106,7 +106,7 @@ const index = () => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(getFieldByUser(token));
+        dispatch(getFieldByUser());
         Swal.fire({
           title: `Se elimino la cancha`,
         });
