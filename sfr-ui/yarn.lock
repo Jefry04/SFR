@@ -870,7 +870,7 @@
   dependencies:
     "tslib" "^2.4.0"
 
-"@testing-library/dom@^8.5.0":
+"@testing-library/dom@^8.5.0", "@testing-library/dom@>=7.21.4":
   "integrity" "sha512-uxF4zmnLHHDlmW4l+0WDjcgLVwCvH+OVLpD8Dfp+Bjfz85prwxWGbwXgJdLtkgjD0qfOzkJF9SmA6YZPsMYX4w=="
   "resolved" "https://registry.npmjs.org/@testing-library/dom/-/dom-8.16.0.tgz"
   "version" "8.16.0"
@@ -907,6 +907,11 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.5.0"
     "@types/react-dom" "^18.0.0"
+
+"@testing-library/user-event@^14.3.0":
+  "integrity" "sha512-P02xtBBa8yMaLhK8CzJCIns8rqwnF6FxhR9zs810flHOBXUYCFjLd8Io1rQrAkQRWEmW2PGdZIEdMxf/KLsqFA=="
+  "resolved" "https://registry.npmjs.org/@testing-library/user-event/-/user-event-14.3.0.tgz"
+  "version" "14.3.0"
 
 "@tootallnate/once@2":
   "integrity" "sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A=="
@@ -985,7 +990,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@*":
+"@types/jest@*", "@types/jest@^28.1.6":
   "integrity" "sha512-0RbGAFMfcBJKOmqRazM8L98uokwuwD5F8rHrv/ZMbrZBwVOWZUyPG6VFNscjYr/vjM3Vu4fRrCPbOs42AfemaQ=="
   "resolved" "https://registry.npmjs.org/@types/jest/-/jest-28.1.6.tgz"
   "version" "28.1.6"

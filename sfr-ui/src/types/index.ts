@@ -1,5 +1,5 @@
 export interface IallFields {
-  allFields: IFields;
+  allFields?: IFields;
 }
 
 export interface IFields {
@@ -24,9 +24,9 @@ export interface IField {
   description: string;
   phone: number;
   address: string;
-  images: [IImage];
-  userId: IUserID;
-  bookings: any[];
+  images?: [IImage];
+  userId?: IUserID;
+  bookings?: any[];
   __v: number;
 }
 
