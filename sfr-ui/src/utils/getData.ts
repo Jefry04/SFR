@@ -16,21 +16,14 @@ export const getFieldDetails = async (id: string) => {
   return data;
 };
 
-export const deleteBooking = async (
-  token: string | null,
-  bookingId: string
-) => {
-  const response = await axios.delete(`${url}/booking/${bookingId}`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  });
+export const deleteBooking = async (bookingId: string) => {
+  const response = await axios.delete(`${url}/booking/${bookingId}`);
   return response;
 };
 
 export const fetchBookingDate = async (id: string | string[] | undefined) => {
   try {
-    const response = await axios.get(`http://localhost:8080/booking/${id}`);
+    const response = await axios.get(`${url}/booking/${id}`);
     return response.data;
   } catch (error) {
     return error;

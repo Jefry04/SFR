@@ -39,6 +39,7 @@ export const authRegister = (
 ): ThunkAction<void, unknown, unknown, AnyAction> => {
   return async (dispatch) => {
     try {
+      dispatch({ type: AUTH_REGISTER_LOADING });
       const response = await axios.post(`${url}/auth/signup`, body);
       const { token } = response.data;
       localStorage.setItem('token', token);
@@ -52,7 +53,7 @@ export const authRegister = (
   };
 };
 
-export const getUserData = (token: string) => {
+export const getUserData = (token: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await axios.get(`${url}/user/profile`, {

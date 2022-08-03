@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useForm } from '@mantine/form';
 import { useRouter } from 'next/router';
 import {
@@ -9,6 +8,7 @@ import {
   Box,
   TextInput,
   Checkbox,
+  Loader,
 } from '@mantine/core';
 import { FormValues } from '../types/register.type';
 import { authRegister } from '../store/action-creators/Auth.actionCreator';
@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const Register = () => {
   const dispatch = useAppDispatch();
-  const { isAuth } = useAppSelector((state) => state.AuthReducer);
+  const { isAuth, isLoading } = useAppSelector((state) => state.AuthReducer);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,7 +44,11 @@ const Register = () => {
     dispatch(authRegister(form.values));
   };
 
-  return (
+  return isLoading ? (
+    <div className="loading">
+      <Loader color="yellow" size={100} />
+    </div>
+  ) : (
     <Box sx={{ maxWidth: 340 }} mx="auto">
       <form onSubmit={form.onSubmit(handleRegister)}>
         <TextInput

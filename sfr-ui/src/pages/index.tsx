@@ -10,6 +10,7 @@ const Home = ({ allFields }: IallFields) => {
   const { filteredFields }: IFilteredFields = useAppSelector(
     (state) => state.FieldReducer
   );
+
   return (
     <>
       <div className="filters-wrapper">

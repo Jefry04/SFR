@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "sfr backend",
   "main": "index.js",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.5.5"
+},
   "scripts": {
     "start": "node ./server/index.js",
     "dev": "nodemon server",
