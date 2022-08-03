@@ -24,7 +24,7 @@ export interface IField {
   description: string;
   phone: number;
   address: string;
-  images?: [IImage];
+  images: [IImage];
   userId?: IUserID;
   bookings?: any[];
   __v: number;
